@@ -1,0 +1,180 @@
+<!--noindex-->
+          <% if user_signed_in? %>
+            <div class="col-md-4" id="aside1">
+              <div class="card animated fadeInUp animation-delay-7">
+                <div class="ms-hero-bg-royal ms-hero-img-coffee">
+                  <h3 class="color-white index-1 text-center no-m pt-4">
+                    <%= link_to current_user.name, user_path(current_user) %>
+                  </h3>
+                  <div class="color-medium index-1 text-center np-m">
+                    <%= "Рейтинг: #{current_user.points} #{Russian.p(current_user.points, "балл", "балла", "баллов")}" %>
+                  </div>
+                    <%= link_to user_path(current_user) do %>
+                      <%= image_tag current_user.avatar.url(:medium), :class => "img-avatar-circle" %>
+                    <% end %>
+                </div>
+                <div class="card-block pt-4 text-center">
+                  <h3 class="color-primary">Активность</h3>
+                  <% if unread_messages_count > 0 %>
+                    <div class="alert alert-info alert-light alert-dismissible" role="alert">
+                      <%= link_to "У вас есть новые сообщения!", mailbox_inbox_path %>
+                    </div>
+                  <% end %>
+                  <%= link_to "<i class='zmdi zmdi-edit'></i> Написать статью".html_safe, new_post_path, :class => "btn btn-raised btn-danger" %>
+                  <%= link_to "<i class='fa fa-gears'></i> Выложить модель".html_safe, new_model_path, :class => "btn btn-raised btn-warning" %>
+                  <%= link_to "<i class='zmdi zmdi-email'></i> Личные сообщения".html_safe, mailbox_inbox_path, :class => "btn btn-raised btn-info" %>
+                </div>
+              </div>
+            </div>  
+          <% else %>
+            <div class="col-md-4">
+              <a href="javascript:void(0)" class="btn btn-xlg btn-raised btn-danger no-focus animated zoomInDown animation-delay-8" data-toggle="modal" data-target="#ms-account-modal">
+                <i class="zmdi zmdi-account"></i> Зайти на сайт
+              </a>
+              <br><br>       
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Популярные статьи</h3>
+                </div>
+
+                <div class="card-block">
+                    <div class="ms-media-list">
+                      <% Post.where("active = ?", true).order("posts.visits DESC").limit(3).each do |post| %>
+                          <div class="media">
+                            <div class="media-left media-middle">
+                                <%= link_to(post_path(post), data: { 'no-turbolink'=>true}) do %>
+                                  <% doc = Nokogiri::HTML(post.text) %>
+                                  <% if img = doc.xpath('//img').first %>
+                                    <% image = img.attr('src') %>
+                                    <%= image_tag image, :class => "media-object media-object-circle" %>
+                                  <% end %>
+                                <% end %>
+                            </div>
+                            <div class="media-body">
+                              <%= link_to post.title, post_path(post), :class => "media-heading" %>
+                              <div class="media-footer text-small">
+                                <span class="mr-1">
+                                  <i class="zmdi zmdi-time color-info mr-05"></i>
+                                  <%= Russian::strftime(post.created_at, "%d %B %Y") %>
+                                  <br><%= post.impressionist_count(:filter=>:session_hash) %>
+                                </span>
+                                <span>
+                                  <i class="zmdi zmdi-folder-outline color-success mr-05"></i>
+                                  <%= link_to post.category.title, category_path(post.category) if post.category.present? %>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <hr>
+                      <% end %>
+                    </div>
+                </div>
+              </div>
+              <div class="card card-warning">
+                <div class="card-header">
+                  <h3 class="card-title">Рейтинг пользователей</h3>
+                </div>
+
+                <div class="card-block">
+                    <div class="ms-media-list">
+                      <% Merit::Score.top_scored(limit: 5).each do |user| %>
+                          <% user = User.find(user["user_id"]) %>
+                          <div class="media">
+                            <div class="media-left media-middle">
+                                <%= link_to(user_path(user), data: { 'no-turbolink'=>true}) do %>
+                                  <%= image_tag user.avatar.url(:thumb), :class => "media-object media-object-circle", :style => "width: 50px; height: 50px;" %>
+                                <% end %>
+                            </div>
+                            <div class="media-body">
+                              <%= link_to user.name, user_path(user), :class => "media-heading" %>
+                              <div class="media-footer text-small">
+                                <span class="mr-1">
+                                  <i class="zmdi zmdi-time color-info mr-05"></i>
+                                  <%= Russian::strftime(user.created_at, "%d %B %Y") %>
+                                </span>
+                                <span>
+                                  <i class="fa fa-star color-warning mr-05"></i>
+                                  <%= user.points %>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                      <% end %>
+                    </div>
+                </div>
+              </div> 
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Последние комментарии</h3>
+                </div>
+
+                <div class="card-block">
+                    <div class="ms-media-list">
+                      <% Comment.order("comments.created_at DESC").limit(5).each do |comment| %>
+                          <div class="media">
+                            <div class="media-left media-middle">
+                                <%= link_to(user_path(comment.user), data: { 'no-turbolink'=>true}) do %>
+                                  <%= image_tag comment.user.avatar.url(:thumb), :class => "media-object media-object-circle", :style => "width: 50px; height: 50px;" %>
+                                <% end %>
+                            </div>
+                            <div class="media-body">
+                              <%= link_to post_path(comment.post), :class => "media-heading" do %>
+                                <%= truncate_html(post_text(comment.post.title), length: 50, omission: "...") %> 
+                              <% end %><br>
+                              <%= truncate_html(post_text(comment.body), length: 50, omission: "...") %>
+                              <div class="media-footer text-small">
+                                <span class="mr-1">
+                                  <i class="zmdi zmdi-time color-info mr-05"></i>
+                                  <%= Russian::strftime(comment.created_at, "%d %B %Y") %>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                      <% end %>
+                    </div>
+                </div>
+              </div> 
+              <div class="card card-royal">
+                <div class="card-header">
+                  <h3 class="card-title">Последние модели</h3>
+                </div>
+
+                <div class="card-block">
+                    <div class="ms-media-list">
+                      <% Model.order("models.created_at DESC").limit(5).each do |model| %>
+                          <div class="media">
+                            <div class="media-left media-middle">
+                                <%= link_to(model_path(model), data: { 'no-turbolink'=>true}) do %>
+                                  <%= image_tag model.images.first.file.url(:thumb), :class => "media-object media-object-circle" if model.images.present? %>
+                                <% end %>
+                            </div>
+                            <div class="media-body">
+                              <%= link_to model_path(model), :class => "media-heading" do %>
+                                <%= truncate_html(post_text(model.title), length: 50, omission: "...") %> 
+                              <% end %><br>
+                              <div class="media-footer text-small">
+                                <span class="mr-1">
+                                  <i class="zmdi zmdi-time color-info mr-05"></i>
+                                  <%= Russian::strftime(model.created_at, "%d %B %Y") %>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                      <% end %>
+                    </div>
+                </div>
+              </div>
+              <% unless user_signed_in? %>
+                <div class="row" >
+                  <div class="col-md-4" id="aside1">
+                    <a href="javascript:void(0)" class="btn btn-xlg btn-raised btn-danger no-focus animated zoomInDown animation-delay-8" data-toggle="modal" data-target="#ms-account-modal">
+                      <i class="zmdi zmdi-account"></i> Зайти на сайт
+                    </a>
+                  </div>
+                </div>
+              <% end %>
+            </div>  
+          <% end %>
+
+
+<!--/noindex-->          

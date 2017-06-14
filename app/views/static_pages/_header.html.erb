@@ -1,0 +1,37 @@
+      <%= render "static_pages/sign" %>
+      <header class="ms-header ms-header-primary">
+        <div class="container container-full">
+          <div class="ms-title">
+            <a href="/index.html">
+              <!-- <img src="assets/img/demo/logo-header.png" alt=""> -->
+              <span class="ms-logo animated zoomInDown animation-delay-5">3D</span>
+              <h1 class="animated fadeInRight animation-delay-6">
+              	Адаптивные Технологии
+              </h1>
+            </a>
+          </div>
+          <div class="header-right">
+            <% if user_signed_in? %>
+              <%= link_to "<i class='fa fa-user-circle'></i>".html_safe, user_path(current_user), :class => "btn-ms-menu btn-circle btn-circle-primary sb-toggle-left animated zoomInDown animation-delay-10" %>
+
+              <%= link_to mailbox_inbox_path, :class => "btn-circle btn-circle-warning no-focus animated zoomInDown animation-delay-8" do %>
+                <i class='zmdi zmdi-email zmdi-hc-fw'></i>
+                <span class='badge badge-warning'><%= unread_messages_count if unread_messages_count > 0 %></span>
+              <% end %>
+
+              <%= link_to "<i class='glyphicon glyphicon-log-out'></i>".html_safe, destroy_user_session_path, :method => :delete, :class => "btn-circle btn-circle-primary no-focus animated zoomInDown animation-delay-8" %>
+
+            <% else %>
+              <a href="javascript:void(0)" class="btn-circle btn-circle-primary no-focus animated zoomInDown animation-delay-8" data-toggle="modal" data-target="#ms-account-modal">
+                <i class="zmdi zmdi-account"></i>
+              </a>
+            <% end %>
+            <form class="search-form animated zoomInDown animation-delay-9">
+              <input id="search-box" type="text" class="search-input" placeholder="Search..." name="q" />
+              <label for="search-box">
+                <i class="zmdi zmdi-search"></i>
+              </label>
+            </form>
+          </div>
+        </div>
+      </header>

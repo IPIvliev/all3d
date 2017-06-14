@@ -1,0 +1,64 @@
+<% if user_signed_in? %>
+  <% if @user == current_user %>
+    <div class="card animated fadeInUp animation-delay-7">
+      <div class="ms-hero-bg-royal ms-hero-img-coffee">
+        <h3 class="color-white index-1 text-center no-m pt-4">
+          <%= link_to current_user.name, user_path(current_user) %>
+        </h3>
+        <div class="color-medium index-1 text-center np-m">
+          <%= "Рейтинг: #{current_user.points} #{Russian.p(current_user.points, "балл", "балла", "баллов")}" %>
+        </div>
+          <%= link_to user_path(current_user) do %>
+            <%= image_tag current_user.avatar.url(:medium), :class => "img-avatar-circle" %>
+          <% end %>
+      </div>
+      <div class="card-block pt-4 text-center">
+        <h3 class="color-primary">Активность</h3>
+        <% if unread_messages_count > 0 %>
+          <div class="alert alert-info alert-light alert-dismissible" role="alert">
+            <%= link_to "У вас есть новые сообщения!", mailbox_inbox_path %>
+          </div>
+        <% end %>
+        <%= link_to "<i class='zmdi zmdi-edit'></i> Написать статью".html_safe, new_post_path, :class => "btn btn-raised btn-danger" %>
+        <%= link_to "<i class='fa fa-gears'></i> Выложить модель".html_safe, new_model_path, :class => "btn btn-raised btn-warning" %>
+        <%= link_to "<i class='zmdi zmdi-email'></i> Личные сообщения".html_safe, mailbox_inbox_path, :class => "btn btn-raised btn-info" %>
+      </div>
+    </div>
+  <% else %>
+    <div class="card animated fadeInUp animation-delay-7">
+      <div class="ms-hero-bg-royal ms-hero-img-coffee">
+        <h3 class="color-white index-1 text-center no-m pt-4">
+          <%= link_to @user.name, user_path(@user) %>
+        </h3>
+        <div class="color-medium index-1 text-center np-m">
+          <%= "Рейтинг: #{@user.points} баллов" %>
+        </div>
+          <%= link_to user_path(@user) do %>
+            <%= image_tag @user.avatar.url(:medium), :class => "img-avatar-circle" %>
+          <% end %>
+      </div>
+      <div class="card-block pt-4 text-center">
+        <h3 class="color-primary">Активность</h3>
+        <%= link_to "<i class='zmdi zmdi-email'></i> Начать переписку".html_safe, new_post_path, :class => "btn btn-raised btn-danger" %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+    <div class="card animated fadeInUp animation-delay-7">
+      <div class="ms-hero-bg-royal ms-hero-img-coffee">
+        <h3 class="color-white index-1 text-center no-m pt-4">
+          <%= link_to @user.name, user_path(@user) %>
+        </h3>
+        <div class="color-medium index-1 text-center np-m">
+          <%= "Рейтинг: #{@user.points} баллов" %>
+        </div>
+          <%= link_to user_path(@user) do %>
+            <%= image_tag @user.avatar.url(:medium), :class => "img-avatar-circle" %>
+          <% end %>
+      </div>
+      <div class="card-block pt-4 text-center">
+
+
+      </div>
+    </div>
+<% end %>

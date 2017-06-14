@@ -1,0 +1,47 @@
+<%= form_for(@model) do |f| %>
+  <% if @model.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@model.errors.count, "error") %> prohibited this model from being saved:</h2>
+
+      <ul>
+      <% @model.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group label-floating has-success">
+    <label class="control-label" for="addon2">Название модели</label>
+    <div class="input-group">
+      <%= f.text_field :title, :class => "form-control", :id => "addon2" %>
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-fab btn-fab-mini">
+          <i class="material-icons">functions</i>
+        </button>
+      </span>
+    </div>
+  </div>
+  <%= file_field_tag "stls[]", type: :file, multiple: true %>
+  <div class="form-group">
+    <%= file_field_tag "images[]", type: :file, multiple: true %>
+<!--    <%= f.file_field :modelimage, :id => "inputFile4" %> -->
+    <div class="input-group">
+      <input type="text" readonly="" class="form-control" placeholder="Выберите изображение для публикации">
+      <span class="input-group-btn input-group-sm">
+        <button type="button" class="btn btn-fab btn-fab-mini">
+          <i class="material-icons">attach_file</i>
+        </button>
+      </span>
+    </div>
+  </div>  
+  <div class="field">
+    <%= f.label "Текст статьи" %><br>
+    <%= f.cktext_area :description, cols: "130", rows: "7", ckeditor: { language: 'ru'} %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit "Сохранить", data: { disable_with: "Данные сохраняются..." } %>
+  </div>
+<% end %>

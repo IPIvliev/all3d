@@ -1,0 +1,127 @@
+      <%= render "users/edit_modal" %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <%= render partial: "/users/profile/profile_block" %>
+
+            <% if user_signed_in? && @user == current_user %>
+              <a href="javascript:void(0)" class="btn btn-warning btn-raised btn-block animated fadeInUp animation-delay-12" data-toggle="modal" data-target="#edit-modal">
+                <i class="zmdi zmdi-edit"></i> Изменить профайл
+              </a>
+            <% end %>
+           
+			<% if @user == current_user %>           
+	            <div class="card animated fadeInUp animation-delay-12">
+	              <div class="ms-hero-bg-royal ms-hero-img-mountain">
+	                <h3 class="color-white index-1 text-center pb-4 pt-4">Личные сообщения</h3>
+	              </div>
+	              <div class="card-block">
+	                <div class="ms-media-list">
+                  <% if current_user.mailbox.conversations.count > 0 %>
+                    <% current_user.mailbox.conversations.limit(3).each do |conversation| %>
+	                  <div class="media mb-2">
+	                    <div class="media-left media-middle">
+	                      <%= link_to user_path(conversation.messages.last.sender) do %>
+                          <%= image_tag conversation.messages.last.sender.avatar.url(:thumb), style: "width:50px; height: 50px;", :class => "media-object" %>
+                        <% end %>
+	                    </div>
+	                    <div class="media-body">
+	                      <h4 class="media-heading"><%= link_to conversation.messages.last.sender.name, user_path(conversation.messages.last.sender) %></h4>
+	                      <%= link_to conversation.subject, conversation_path(conversation) %>
+	                      <div class="">
+                          <%= conversation.messages.last.body %>
+	                      </div>
+	                    </div>
+	                  </div>
+                    <% end %>
+                  <% else %>
+                    У вас нет личных сообщений.
+                  <% end %>
+	                </div>
+	              </div>
+	            </div>
+	        <% end %>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card card-info card-block text-center wow zoomInUp animation-delay-6">
+                  <h2 class="color-info">
+                  	<%= @user.posts.where("active = ?", true).length %>
+                  </h2>
+                  <i class="fa fa-4x fa-file-text color-info"></i>
+                  <p class="mt-2 no-mb lead small-caps color-info">статьи</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card card-success card-block text-center wow zoomInUp animation-delay-4">
+                  <h2 class="color-success"><%= @user.models.where("active = ?", true).length %></h2>
+                  <i class="fa fa-4x fa-briefcase color-success"></i>
+                  <p class="mt-2 no-mb lead small-caps color-success">модели</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card card-royal card-block text-center wow zoomInUp animation-delay-2">
+                  <h2 class="color-royal"><%= @user.comments.length %></h2>
+                  <i class="fa fa-4x fa-comments-o color-royal"></i>
+                  <p class="mt-2 no-mb lead small-caps color-royal">комментарии</p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-primary animated fadeInUp animation-delay-12">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="zmdi zmdi-account-circle"></i> Общая информация
+                </h3>
+              </div>
+              <table class="table table-no-border table-striped">
+                <tr>
+                  <th>
+                    <i class="zmdi zmdi-account mr-1 color-success"></i> Имя пользователя
+                  </th>
+                  <td>
+                    <%= @user.name %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <i class="zmdi zmdi-calendar mr-1 color-royal"></i> Дата регистрации
+                  </th>
+                  <td>
+                    <%= Russian::strftime(@user.created_at, "%d %B %Y") %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <i class="zmdi zmdi-calendar mr-1 color-royal"></i> Дата последнего посещения
+                  </th>
+                  <td>
+                   	<%= Russian::strftime(@user.last_sign_in_at, "%d %B %Y") %>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <h2 class="color-primary text-center mt-4 mb-2">Активность</h2>
+            <div class="row">
+              <div class="col-md-12">
+
+                <ul class="ms-timeline">
+                	<% if @items.blank? %>
+                		<%= render :partial => "users/profile/blank", :locals => {:user => @user} %>
+                	<% else %>
+						<% @items.each do |item| %>
+							<% if item.model_name.name == "Post" && item.active == true %>
+								<%= render :partial => "users/profile/post_item", :locals => {:post => item} %>
+							<% elsif item.model_name.name == "Comment" %>
+								<%= render :partial => "users/profile/comment_item", :locals => {:comment => item} %>
+							<% elsif item.model_name.name == "Model" && item.active == true %>
+								<%= render :partial => "users/profile/model_item", :locals => {:model => item} %>
+							<% end %>
+						<% end %>
+					<% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

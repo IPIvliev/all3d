@@ -1,0 +1,108 @@
+      <aside class="ms-footbar">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 ms-footer-col">
+              <div class="ms-footbar-block">
+                <h3 class="ms-footbar-title">Модели для печати</h3>
+                <ul class="list-unstyled ms-icon-list three_cols">
+                  <% Model.order("models.created_at DESC").limit(12).each do |model| %>
+                  <li>
+                    <%= link_to model_path(model) do %>
+                      <%= image_tag model.images.first.file.url(:thumb), :style => "width: 64px; height: 64px;" if model.images.present? %>
+                      <br>
+                      <%= truncate_html(post_text(model.title), length: 8) %>
+                    <% end %>
+                  </li>
+                  <% end %>
+
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-5 col-sm-7 ms-footer-col ms-footer-alt-color">
+              <div class="ms-footbar-block">
+                <h3 class="ms-footbar-title text-center mb-2">Последние новости</h3>
+                <div class="ms-footer-media">
+                <% Post.where("active = ?", true).order("posts.created_at DESC").limit(3).each do |post| %>
+                  <div class="media">
+                    <div class="media-left media-middle">
+                      <%= link_to post_path(post) do %>
+                        <% doc = Nokogiri::HTML(post.text) %>
+                        <% if img = doc.xpath('//img').first %>
+                          <% image = img.attr('src') %>
+                          <%= image_tag image, :class => "media-object media-object-circle", :style => "width: 64px; height: 64px;" %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <div class="media-body">
+                      <h4 class="media-heading">
+                        <%= link_to post_path(post) do %>
+                          <%= truncate_html(post_text(post.text), length: 80, omission: "...") %>
+                        <% end %>
+                      </h4>
+                      <div class="media-footer">
+                        <span>
+                          <i class="zmdi zmdi-time color-info-light"></i>
+                          <%= Russian::strftime(post.created_at, "%d %B %Y") %>
+                        </span>
+                        <span>
+                          <i class="zmdi zmdi-folder-outline color-warning-light"></i>
+                          <%= link_to post.category.title, category_path(post.category) if post.category.present? %>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-5 ms-footer-col ms-footer-text-right">
+              <div class="ms-footbar-block">
+                <div class="ms-footbar-title">
+                  <span class="ms-logo ms-logo-white ms-logo-sm mr-1">3D</span>
+                  <h3 class="no-m ms-site-title">
+                    ПРИНТЕРЫ
+                  </h3>
+                </div>
+                <address class="no-mb">
+                  <p>
+                    <i class="color-danger-light zmdi zmdi-pin mr-1"></i> г. Нижний Новгород</p>
+                  <p>
+                    <i class="color-warning-light zmdi zmdi-map mr-1"></i> Московское шоссе, 83а</p>
+                  <p>
+                    <i class="color-info-light zmdi zmdi-email mr-1"></i>
+                    <a href="mailto:joe@example.com">info@info.ru</a>
+                  </p>
+                  <p>
+                    <%= link_to "Связаться", "/contacts.html", class: "btn btn-success btn-raised btn-block" %>
+                  </p>                  
+                </address>
+              </div>
+              <div class="ms-footbar-block">
+                <h3 class="ms-footbar-title">Мы в сетях</h3>
+                <div class="ms-footbar-social">
+                  <a href="javascript:void(0)" class="btn-circle btn-facebook">
+                    <i class="zmdi zmdi-facebook"></i>
+                  </a>
+                  <a href="javascript:void(0)" class="btn-circle btn-twitter">
+                    <i class="zmdi zmdi-twitter"></i>
+                  </a>
+                  <br>
+                  <a href="javascript:void(0)" class="btn-circle btn-google">
+                    <i class="zmdi zmdi-google"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <footer class="ms-footer">
+        <div class="container">
+          <p>Copyright &copy; Адаптивные техноогии 2017</p>
+        </div>
+      </footer>
+      <div class="btn-back-top">
+        <a href="#" data-scroll id="back-top" class="btn-circle btn-circle-primary btn-circle-sm btn-circle-raised ">
+          <i class="zmdi zmdi-long-arrow-up"></i>
+        </a>
+      </div>

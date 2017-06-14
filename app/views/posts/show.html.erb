@@ -1,0 +1,104 @@
+      <div class="material-background"></div>
+      <div class="container">
+      
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card animated materialUp animation-delay-5" ">
+                <div class="card-block card-block-big ">
+                    <h1 class="no-mt "><%= @post.title_ru %></h1><br>
+
+                    <div class="mb-4 ">
+                        <%= image_tag @post.user.avatar.url(:thumb), :class => "img-circle mr-1", :style => "width: 50px; height: 50px;" %>
+                        <%= link_to @post.user.name, user_path(@post.user) %>
+                        <%= link_to @post.category.title, category_path(@post.category), :class => "ms-tag ms-tag-info" if @post.category.present? %>
+                        <span class="ml-1 hidden-xs ">
+                            <i class="zmdi zmdi-time mr-05 color-info "></i>
+                            <span class="color-medium-dark ">
+                                <%= Russian::strftime(@post.created_at, "%d %B %Y г.") %>
+                            </span>
+                        </span>
+                        <span class="ml-1 hidden-xs ">
+                            <i class="fa fa-eye mr-05 color-info "></i>
+                            <span class="color-medium-dark ">
+                                <%= @post.visits %>
+                            </span>
+                        </span>
+
+                        <span class="ml-1 "><i class="zmdi zmdi-comments color-info mr-05 "></i> <%= @post.comments.count %></span>
+                        <span class="ml-1 hidden-xs ">
+                            <i class="fa fa-thumbs-up mr-05 color-success "></i>
+                            <span class="color-medium-dark ">
+                                <%= @post.get_upvotes.size %>
+                            </span>
+                        </span>
+                        <span class="ml-1 hidden-xs ">
+                            <i class="fa fa-thumbs-down mr-05 color-danger "></i>
+                            <span class="color-medium-dark ">
+                                <%= @post.get_downvotes.size %>
+                            </span>
+                        </span>
+                        <% if user_signed_in? %>
+                            <% unless current_user.voted_for?(@post) %>
+                                <%= link_to like_post_path(@post), method: :put, :class => "btn btn-success btn-raised animate-icon fadeInRight" do %>
+                                  <i class="mr-2 fa fa-thumbs-o-up"></i>
+                                  <%= @post.get_upvotes.size %>
+                                <% end %>
+
+                                <%= link_to dislike_post_path(@post), method: :put, :class => "btn btn-danger btn-raised animate-icon" do %>
+                                  <i class="mr-2 fa fa-thumbs-o-down"></i>
+                                  <%= @post.get_downvotes.size %>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                    <%= @post.text.html_safe %>
+                </div>
+                <div class="card-footer">
+                    <%= image_tag @post.user.avatar.url(:thumb), :class => "img-circle mr-1", :style => "width: 50px; height: 50px;" %>
+                    <%= link_to @post.user.name, user_path(@post.user) %>
+                    <%= link_to @post.category.title, category_path(@post.category), :class => "ms-tag ms-tag-info" if @post.category.present? %>
+                    <span class="ml-1 hidden-xs ">
+                        <i class="zmdi zmdi-time mr-05 color-info "></i>
+                        <span class="color-medium-dark ">
+                            <%= Russian::strftime(@post.created_at, "%d %B %Y г.") %>
+                        </span>
+                    </span>
+                    <span class="ml-1 hidden-xs ">
+                        <i class="fa fa-eye mr-05 color-info "></i>
+                        <span class="color-medium-dark ">
+                            <%= @post.visits %>
+                        </span>
+                    </span>
+
+                    <span class="ml-1 "><i class="zmdi zmdi-comments color-info mr-05 "></i> <%= @post.comments.count %></span>
+                    <span class="ml-1 hidden-xs ">
+                        <i class="fa fa-thumbs-up mr-05 color-success "></i>
+                        <span class="color-medium-dark ">
+                            <%= @post.get_upvotes.size %>
+                        </span>
+                    </span>
+                    <span class="ml-1 hidden-xs ">
+                        <i class="fa fa-thumbs-down mr-05 color-danger "></i>
+                        <span class="color-medium-dark ">
+                            <%= @post.get_downvotes.size %>
+                        </span>
+                    </span>
+                        <% if user_signed_in? %>
+                            <% unless current_user.voted_for?(@post) %>
+                                <%= link_to like_post_path(@post), method: :put, :class => "btn btn-success btn-raised animate-icon fadeInRight" do %>
+                                  <i class="mr-2 fa fa-thumbs-o-up"></i>
+                                  <%= @post.get_upvotes.size %>
+                                <% end %>
+
+                                <%= link_to dislike_post_path(@post), method: :put, :class => "btn btn-danger btn-raised animate-icon" do %>
+                                  <i class="mr-2 fa fa-thumbs-o-down"></i>
+                                  <%= @post.get_downvotes.size %>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                </div>
+            </div>
+            <%= render "posts/comments/comments_list" %>
+        </div>
+    </div>
+  </div>

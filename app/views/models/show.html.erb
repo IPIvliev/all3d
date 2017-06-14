@@ -1,0 +1,92 @@
+     <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="">
+                <div id="carousel-example-generic" class="ms-carousel carousel slide" data-ride="carousel">
+                  <!-- Indicators -->
+                  <ol class="carousel-indicators">
+                    <% i = 0 %>
+                    <% @model.images.each do |image| %>
+                      <li data-target="#carousel-example-generic" data-slide-to="<%= i %>" <%= "class='active'" if i == 0%>></li>
+                      <% i += 1 %>
+                    <% end %>
+                  </ol>
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner" role="listbox">
+                    <% @model.images.each do |image| %>
+                      <div class="item <%= "active" if @model.images.first == image %>">
+                        <%= image_tag image.file.url(:large) %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <% if @model.images.count > 1 %>
+                    <!-- Controls -->
+                    <a href="#carousel-example-generic" class="btn-circle btn-circle-xs btn-circle-raised btn-circle-primary left carousel-control" role="button" data-slide="prev">
+                      <i class="zmdi zmdi-chevron-left"></i>
+                    </a>
+                    <a href="#carousel-example-generic" class="btn-circle btn-circle-xs btn-circle-raised btn-circle-primary right carousel-control" role="button" data-slide="next">
+                      <i class="zmdi zmdi-chevron-right"></i>
+                    </a>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="ms-hero-bg-primary ms-hero-img-mountain">
+                <h2 class="text-center no-m pt-4 pb-4 color-white index-1"><%= @model.title %></h2>
+              </div>
+              <div class="card-block">
+                <h3 class="color-primary no-mt">Информация</h3>
+                <ul class="list-unstyled">
+                  <% if @model.author %>
+                    <li>
+                      <strong>Автор:</strong> <%= link_to @model.author, "https://www.thingiverse.com/#{@model.author}", target: "blank" %>
+                    </li>
+                    <li>
+                      <strong>Оригинал:</strong> <%= link_to "Thingiverse", @model.url, target: "blank" %>
+                    </li>                    
+                  <% end %>                  
+                  <li>
+                    <strong>Разместил:</strong> <%= link_to @model.user.name, user_path(@model.user) %>
+                  </li>
+                  <li>
+                    <strong>Дата создания:</strong> <%= Russian::strftime(@model.created_at, "%d %B %Y") %>
+                  </li>
+                </ul>
+                <p class="text-center">
+                  <%= link_to "#{@model.stls.first.file.url}.zip", :target => "blank", :class => "btn btn-raised btn-primary" do %>
+                    <i class="fa fa-desktop"></i> Скачать
+                  <% end %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div> 
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-block">
+                <h3 class="color-primary">Описание</h3>
+                <%= @model.description.html_safe %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <h2 class="right-line mt-6">3D модели</h2>
+        <div class="row">
+          <% Model.where("active = ?", true).order("RAND()").limit(3).each do |model| %>
+            <div class="col-md-4">
+              <div class="card">
+                <%= link_to model_path(model) do %>
+                  <%= image_tag model.images.first.file.url(:medium), :class => "img-responsive" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <!-- container -->

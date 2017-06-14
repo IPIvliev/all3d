@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card card-primary">
+        <div class="card-header">
+          <h1 class="card-title">Википедия о 3D печати</h1>
+        </div>
+        <div class="card-block">
+          <ul>
+              <% @articles.each do |article| %>
+                <% if article.root? %>
+                  <br>
+                  <li><%= link_to article.title.upcase, article_path(article) %></li>
+                    <% article.children.order('articles.title ASC').each do |child| %>
+                      <ul>
+                        <li><%= link_to child.title, article_path(child) %></li>
+                          <% child.children.order('articles.title ASC').each do |child| %>
+                            <ul>
+                              <li><%= link_to child.title, article_path(child) %></li>
+                                <% child.children.order('articles.title ASC').each do |child| %>
+                                  <ul>
+                                    <li><%= link_to child.title, article_path(child) %></li>
+                                  </ul>
+                                <% end %>
+                            </ul>
+                          <% end %>
+                      </ul>
+                    <% end %>
+                <% end %>
+              <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <%= render "static_pages/right_side" %>
+  </div>
+</div>

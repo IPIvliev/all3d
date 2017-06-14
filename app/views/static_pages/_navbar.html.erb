@@ -1,0 +1,46 @@
+      <nav class="navbar navbar-static-top yamm ms-navbar ms-navbar-white">
+        <div class="container container-full">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+              <!-- <img src="assets/img/demo/logo-navbar.png" alt=""> -->
+              <span class="ms-logo ms-logo-sm">M</span>
+              <span class="ms-title">Material
+                <strong>Style</strong>
+              </span>
+            </a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="<%= active_page('/index.html') %>">
+                <%= link_to "Главная", "/index.html", :class => "animated fadeIn animation-delay-5" %>
+              </li>
+              <li class="dropdown <%= active_page(categories_path) %>">
+                <a href="#" class="dropdown-toggle animated fadeIn animation-delay-7" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-name="blog">Новости
+                  <i class="zmdi zmdi-chevron-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                	<% Category.all.each do |category| %>
+	                  <li>
+	                    <%= link_to "<i class='zmdi zmdi-view-compact'></i> #{category.title}".html_safe, category_path(category) %>
+	                  </li>
+	                <% end %>
+                </ul>
+              </li>
+              <li class="<%= active_page(models_path) %>">
+              <%= link_to "Модели", models_path, :class => "animated fadeIn animation-delay-5" %>
+              </li>
+              <li class="<%= active_page(articles_path) %>">
+              	<%= link_to "Википедия 3D", articles_path, :class => "animated fadeIn animation-delay-5" %>
+              </li>
+              <li class="<%= active_page('/contacts.html') %>">
+               	<%= link_to "Контакты", "/contacts.html", :class => "animated fadeIn animation-delay-5" %>
+              </li>
+            </ul>
+          </div>
+          <!-- navbar-collapse collapse -->
+          <a href="javascript:void(0)" class="sb-toggle-left btn-navbar-menu">
+            <i class="zmdi zmdi-menu"></i>
+          </a>
+        </div>
+        <!-- container -->
+      </nav>

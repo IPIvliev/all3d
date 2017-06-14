@@ -1,0 +1,36 @@
+<% unless @post.comments.blank? %>
+<div class="row">
+  <div class="col-md-12">
+        <h2 class="right-line">Комментарии</h2>
+        <% @post.comments.each do |comment| %>
+            <div class="card">
+                <div class="card-header">
+                    <%= image_tag comment.user.avatar.url(:thumb), :class => "img-circle mr-1", :style => "width: 50px; height: 50px;" %>
+                    <%= link_to comment.user.name, user_path(comment.user) %>
+
+                    <span class="ml-1 hidden-xs "><i class="zmdi zmdi-time mr-05 color-info "></i> <span class="color-medium-dark "><%= Russian::strftime(comment.created_at, "%d %B %Y г.") %></span></span>
+                    <span class="right">
+                        <%= link_to commentlike_post_path(comment), method: :put do %>
+                          Upvote
+                          <%= comment.get_upvotes.size %>
+                        <% end %>
+
+                        <%= link_to commentdislike_post_path(comment), method: :put do %>
+                          Downvote
+                          <%= comment.get_downvotes.size %>
+                        <% end %>
+                    </span>
+                </div>
+                <div class="card-block">
+                    <%= comment.body.html_safe %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+<% end %>
+<% if user_signed_in? %>
+    <%= render "posts/comments/new_comment" %>
+<% else %>
+    Только авторизованные пользователи могут оставлять комментарии. <a href="javascript:void(0)" data-toggle="modal" data-target="#ms-account-modal">Зарегистрируйтесь</a> или <a href="javascript:void(0)" data-toggle="modal" data-target="#ms-account-modal">зайдите в свой аккаунт</a>.
+<% end %>

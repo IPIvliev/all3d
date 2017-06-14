@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<%= display_meta_tags :site => '3D Адаптивные технологии', reverse: true %>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
+	<meta name="keywords" content="3d, 3d принтеры, 3d модели, адаптивное производство, новости, распечатать модель, slt, слайсер, dlp, fdm, принтеры, сканер" />
+	<meta name="description" content="3d принтеры и модели" />
+</head>
+<body 'no-turbolink'>
+	
+	<!-- <%= render 'static_pages/preloader' %> -->
+	<div class="sb-site-container">
+		<%= render 'static_pages/header' %>
+		<%= render 'static_pages/navbar' %>
+		<%= yield %>
+		<%= render 'static_pages/footer' %>
+	</div>
+
+</body>
+</html>

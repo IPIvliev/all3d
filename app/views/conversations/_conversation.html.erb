@@ -1,0 +1,20 @@
+<div class="media">
+  <div class="media-left">
+    <a href="#">
+      <%= link_to user_path(conversation.originator) do %>
+        <% image_tag conversation.originator.avatar.url(:thumb), style: "width:64px" %>
+      <% end %>
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <%= link_to conversation.originator.name, conversation_path(conversation) %> 
+      <%= "Новое сообщение" if conversation.messages.last.is_unread?(current_user) %><br>
+      <small><b>Subject: </b><%= conversation.subject %></small><br>
+      <small><b>Date: </b><%=  conversation.messages.last.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
+    </h4>
+    <%= truncate conversation.messages.last.body, length: 250 %><br>
+    <%= link_to "Посмотреть переписку и ответить на сообщение", conversation_path(conversation)  %>
+  </div>
+</div>
+<hr>

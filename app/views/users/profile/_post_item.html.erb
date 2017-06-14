@@ -1,0 +1,52 @@
+<li class="ms-timeline-item wow materialUp">
+	<div class="ms-timeline-date">
+		<time class="timeline-time" datetime="">
+			<%= Russian::strftime(post.created_at, "%d %B %Y г.") %>
+		</time>
+		<i class="ms-timeline-point bg-royal"></i>
+		<%= image_tag post.user.avatar.url(:thumb), :class => "ms-timeline-point-img" %>
+	</div>
+	<div class="card card-royal">
+		<div class="card-header">
+			<h3 class="card-title">
+				<%= post.title %>
+			</h3>
+		</div>
+		<div class="card-block">
+			<div class="row">
+				<div class="col-sm-4">
+					<% doc = Nokogiri::HTML(post.text) %>
+					<% if img = doc.xpath('//img').first %>
+						<%= image_tag img.attr('src'), :class => "img-responsive", style: 'width:150px; height:auto;' %>
+					<% end %>
+				</div>
+				<div class="col-sm-8">
+					<%= truncate_html(post_text(post.text), length: 250, omission: "...") %>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-7">
+					<a href="javascript:void(0)" class="ms-tag ms-tag-info">Design</a>
+					<span class="ml-1 hidden-xs">
+						<i class="zmdi zmdi-time mr-05 color-info"></i>
+						<span class="color-medium-dark">
+							<%= Russian::strftime(post.created_at, "%d %B %Y г.") %>
+						</span>
+					</span>
+					<span class="ml-1">
+						<i class="zmdi zmdi-comments color-royal mr-05"></i>
+						 <%= post.comments.length %>
+					</span>
+				</div>
+				<div class="col-md-5">
+					<%= link_to(post_path(post), html_options = { :class => "btn btn-primary btn-raised btn-block animate-icon"}) do %>
+						Читать
+						<i class="ml-1 no-mr zmdi zmdi-long-arrow-right"></i>
+					<% end %>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</li>

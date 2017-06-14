@@ -1,0 +1,20 @@
+<li class="ms-timeline-item wow materialUp">
+	<div class="ms-timeline-date">
+		<time class="timeline-time" datetime="">
+			<%= Russian::strftime(model.created_at, "%d %B %Y г.") %>
+		</time>
+		<i class="ms-timeline-point bg-warning"></i>
+		<%= image_tag model.user.avatar.url(:thumb), :class => "ms-timeline-point-img" %>
+	</div>
+	<div class="card width-auto card-warning">
+		<%= link_to(model_path(model)) do %>
+			<figure class="ms-thumbnail">
+				<%= image_tag model.images.first.file.url(:medium), :class => "img-responsive", :style => "width: 100%;" if model.images.present? %>
+			</figure>
+		<% end %>
+		<div class="card-block text-center portfolio-item-caption">
+			<h3 class="color-primary no-mt"><%= link_to model.title, model_path(model) %></h3>
+			<p><%= truncate_html(post_text(model.description), length: 250, omission: "...") %></p>
+		</div>
+	</div>
+</li>
