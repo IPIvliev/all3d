@@ -28,7 +28,7 @@ gem "select2-rails"
 gem 'jquery-turbolinks'
 
 #Captcha
-gem "recaptcha", require: "recaptcha/rails"
+gem "recaptcha", :require => "recaptcha/rails"
 
 # Pictures
 gem "paperclip", "~> 5.0.0"
