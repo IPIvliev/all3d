@@ -66,7 +66,7 @@ namespace :parsing do
 					i = post.postimages.first.id
 
 					doc.css("img").map do |img|
-					  img["src"] = "http://localhost:3000#{post.postimages.find(i).file.url}"
+					  img["src"] = "http://all3dprinters.ru#{post.postimages.find(i).file.url}"
 					  i += 1
 					end
 
@@ -76,6 +76,7 @@ namespace :parsing do
 					puts "Статья #{title} добавлена. Знаки: #{text.length}. Изображения #{images.count}"
 				else
 					puts "Уже есть такая статья. Знаки: #{text.length}"
+					break
 				end
 			end	
 			
