@@ -30,8 +30,13 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: all3dbase
+  database: razrus_all3d
   pool: 5
-  username: root
-  password: OdergiesINFOCOM
-  host: localhost
+  username: razrus
+  password: Huteras1
+  host: mysql.razrus.myjino.ru
+#  database: all3dbase
+#  pool: 5
+#  username: root
+#  password: OdergiesINFOCOM
+#  host: localhost
