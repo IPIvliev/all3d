@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     resources :comments
     resources :users
     resources :models
+    resources :articles
 
     devise_for :users, controllers: { sessions: 'sessions' }
   end

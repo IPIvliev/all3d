@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170616150902) do
+ActiveRecord::Schema.define(version: 20170621141824) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -19,9 +19,10 @@ ActiveRecord::Schema.define(version: 20170616150902) do
     t.text     "description", limit: 65535
     t.integer  "like",        limit: 4
     t.integer  "dislike",     limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "ancestry",    limit: 255
+    t.boolean  "active",                    default: false
   end
 
   add_index "articles", ["ancestry"], name: "index_articles_on_ancestry", using: :btree

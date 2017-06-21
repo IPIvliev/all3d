@@ -53,16 +53,6 @@
                       </div>
                       <div class="row mt-2">
                         <div class="col-md-6">
-                          <div class="form-group no-mt">
-                            <% if Devise.mappings[:user].rememberable? %>
-                              <div class="checkbox">
-                                <%= f.check_box :remember_me %>
-                                <%= f.label :remember_me %>
-                              </div>
-                            <% end %>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
                           <%= f.submit "Войти", :class => "btn btn-raised btn-primary pull-right" %>
                         </div>
                       </div>
@@ -70,15 +60,6 @@
                     <p class="notice"><%= notice %></p>
                     <p class="alert"><%= alert %></p>
                   <% end %>
-                  <div class="text-center">
-                    <h3>Зайти с помощью</h3>
-                    <a href="javascript:void(0)" class="wave-effect-light btn btn-raised btn-facebook">
-                      <i class="zmdi zmdi-facebook"></i> Facebook</a>
-                    <a href="javascript:void(0)" class="wave-effect-light btn btn-raised btn-twitter">
-                      <i class="zmdi zmdi-twitter"></i> Twitter</a>
-                    <a href="javascript:void(0)" class="wave-effect-light btn btn-raised btn-google">
-                      <i class="zmdi zmdi-google"></i> Google</a>
-                  </div>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="ms-register-tab">
                   <%= form_for(User.new, as: :user, url: registration_path(:user)) do |f| %>
@@ -130,26 +111,20 @@
                   <% end %>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="ms-recovery-tab">
+
+                  <%= form_for(:user, as: :user, url: password_path(:user), html: { method: :post }) do |f| %>
                   <fieldset>
-                    <div class="form-group label-floating">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="zmdi zmdi-account"></i>
-                        </span>
-                        <label class="control-label" for="ms-form-user">Логин</label>
-                        <input type="text" id="ms-form-user" class="form-control"> </div>
-                    </div>
                     <div class="form-group label-floating">
                       <div class="input-group">
                         <span class="input-group-addon">
                           <i class="zmdi zmdi-email"></i>
                         </span>
                         <label class="control-label" for="ms-form-email">Email</label>
-                        <input type="email" id="ms-form-email" class="form-control"> </div>
+                        <%= f.email_field :email, autofocus: true, :class => "form-control" %>
                     </div>
                     <button class="btn btn-raised btn-block btn-primary">Отправить пароль</button>
                   </fieldset>
-                  </form>
+                  <% end %>
                 </div>
               </div>
             </div>

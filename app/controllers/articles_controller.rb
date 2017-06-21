@@ -4,13 +4,13 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all.order('articles.title ASC')
+    @articles = Article.where("active =?", true).order('articles.title ASC')
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
-    @articles = Article.all.order('articles.title ASC')
+    @articles = Article.where("active =?", true).order('articles.title ASC')
     set_meta_tags :title => @article.title,
                   :canonical => request.base_url + request.original_fullpath
   end

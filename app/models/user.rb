@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   validates :city, presence: true, allow_blank: false
+  validates :name, presence: true, allow_blank: false
 
   # Images
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/img/missing.png"
