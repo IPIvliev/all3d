@@ -19,7 +19,11 @@ class CommentsController < ApplicationController
 
     @comment.save
 
-    redirect_to post_path(@comment.post)
+    if @comment.post.present?
+      redirect_to post_path(@comment.post)
+    else
+      redirect_to model_path(@comment.model)
+    end
   end
 
   # GET /comments/1/edit
@@ -74,6 +78,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:body, :like, :dislike, :post_id, :user_id)
+      params.require(:comment).permit(:body, :like, :dislike, :post_id, :user_id, :model_id)
     end
 end

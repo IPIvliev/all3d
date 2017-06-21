@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # Статические страницы
   get "/index.html", :to => "static_pages#index"
   get "/contacts.html", :to => "static_pages#contacts"
+  get "/users.html", :to => "users#index"
   get "/messages", :to => "users#messages", :as => "messages"
 
   # Контакты

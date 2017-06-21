@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 	has_many :comments
 	has_many :postimages
 	belongs_to :category
-	belongs_to :user
+	belongs_to :user, counter_cache: true
 
 	#Translations
 	translates :title, :text, :description, :keywords
@@ -32,6 +32,11 @@ class Post < ActiveRecord::Base
 
 	def postimage_from_url(url)
 		self.postimages.create(open(url))
+	end
+
+	# Searching
+	def self.search(search)
+	  where("title LIKE ?", "%#{search}%")
 	end
 
 end

@@ -50,11 +50,14 @@
                     </li>                    
                   <% end %>                  
                   <li>
-                    <strong>Разместил:</strong> <%= link_to @model.user.name, user_path(@model.user) %>
+                    <strong>Разместил:</strong> <%= link_to user_name_with_mail(@model.user), user_path(@model.user) %>
                   </li>
                   <li>
                     <strong>Дата создания:</strong> <%= Russian::strftime(@model.created_at, "%d %B %Y") %>
                   </li>
+                  <li>
+                    <strong>Размер файла:</strong> <%= "#{@model.stls.first.file.size/1024} Кб" %>
+                  </li>                  
                 </ul>
                 <p class="text-center">
                   <%= link_to "#{@model.stls.first.file.url}.zip", :target => "blank", :class => "btn btn-raised btn-primary" do %>
@@ -67,12 +70,23 @@
         </div> 
         <div class="row">
           <div class="col-md-12">
-            <div class="card">
-              <div class="card-block">
-                <h3 class="color-primary">Описание</h3>
-                <%= @model.description.html_safe %>
 
-              </div>
+            <div class="card card-primary">
+                <ul class="nav nav-tabs nav-tabs-transparent indicator-primary nav-tabs-full nav-tabs-4" role="tablist">
+                    <li role="presentation" class="active"><a class="withoutripple" href="#home10" aria-controls="home10" role="tab" data-toggle="tab"><i class="zmdi zmdi-home"></i> <span class="hidden-xs">Описание</span></a></li>
+                    <li role="presentation"><a class="withoutripple" href="#profile10" aria-controls="profile10" role="tab" data-toggle="tab"><i class="zmdi zmdi-account"></i> <span class="hidden-xs">Комментарии</span></a></li>
+                </ul>
+
+                <div class="card-block">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="home10">
+                            <%= @model.description.html_safe %>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="profile10">
+                            <%= render "models/comments/comments_list" %>
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
         </div>

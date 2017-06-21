@@ -38,6 +38,15 @@
           </div>
           <div class="form-group label-floating">
             <div class="input-group">
+              <span class="input-group-addon">
+                <i class="zmdi zmdi-account"></i>
+              </span>
+              <label class="control-label" for="ms-form-user">Город</label>
+              <%= f.text_field :city, value: @user.city, :id => "ms-form-user", :class => "form-control" %>
+            </div>
+          </div>
+          <div class="form-group label-floating">
+            <div class="input-group">
               <label class="control-label" for="ms-form-pass">Ваш аватар</label>
               <%= f.file_field :avatar, :id => "pictureInput" %>
               <div class="row">

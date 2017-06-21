@@ -9,24 +9,23 @@
                 </span>
               </button>
               <div class="modal-title text-center">
-                <span class="ms-logo ms-logo-white ms-logo-sm mr-1">M</span>
-                <h3 class="no-m ms-site-title">Material
-                  <span>Style</span>
+                <span class="ms-logo ms-logo-white ms-logo-sm mr-1">3D</span>
+                <h3 class="no-m ms-site-title">Адаптивные технологии
                 </h3>
               </div>
               <div class="modal-header-tabs">
                 <ul class="nav nav-tabs nav-tabs-full nav-tabs-3 nav-tabs-primary" role="tablist">
                   <li role="presentation" class="active">
                     <a href="#ms-login-tab" aria-controls="ms-login-tab" role="tab" data-toggle="tab" class="withoutripple">
-                      <i class="zmdi zmdi-account"></i> Login</a>
+                      <i class="zmdi zmdi-account"></i> Логин</a>
                   </li>
                   <li role="presentation">
                     <a href="#ms-register-tab" aria-controls="ms-register-tab" role="tab" data-toggle="tab" class="withoutripple">
-                      <i class="zmdi zmdi-account-add"></i> Register</a>
+                      <i class="zmdi zmdi-account-add"></i> Регистрация</a>
                   </li>
                   <li role="presentation">
                     <a href="#ms-recovery-tab" aria-controls="ms-recovery-tab" role="tab" data-toggle="tab" class="withoutripple">
-                      <i class="zmdi zmdi-key"></i> Recovery Pass</a>
+                      <i class="zmdi zmdi-key"></i> Восстановить пароль</a>
                   </li>
                 </ul>
               </div>
@@ -41,16 +40,16 @@
                           <span class="input-group-addon">
                             <i class="zmdi zmdi-account"></i>
                           </span>
-                          <label class="control-label" for="ms-form-user">Username</label>
-                          <%= f.email_field :email, autofocus: true, :id => "ms-form-user", :class => "form-control" %>
+                          <label class="control-label" for="ms-form-user">Email</label>
+                          <%= f.email_field :email, autofocus: true, :id => "ms-form-user", :class => "form-control", :placeholder => "Введите адрес электронной почты" %>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
                           <span class="input-group-addon">
                             <i class="zmdi zmdi-lock"></i>
                           </span>
-                          <label class="control-label" for="ms-form-pass">Password</label>
-                          <%= f.password_field :password, autocomplete: "off", :id => "ms-form-pass", :class => "form-control" %>
+                          <label class="control-label" for="ms-form-pass">Пароль</label>
+                          <%= f.password_field :password, autocomplete: "off", :id => "ms-form-pass", :class => "form-control", :placeholder => "Пароль" %>
                       </div>
                       <div class="row mt-2">
                         <div class="col-md-6">
@@ -72,7 +71,7 @@
                     <p class="alert"><%= alert %></p>
                   <% end %>
                   <div class="text-center">
-                    <h3>Login with</h3>
+                    <h3>Зайти с помощью</h3>
                     <a href="javascript:void(0)" class="wave-effect-light btn btn-raised btn-facebook">
                       <i class="zmdi zmdi-facebook"></i> Facebook</a>
                     <a href="javascript:void(0)" class="wave-effect-light btn btn-raised btn-twitter">
@@ -89,7 +88,7 @@
                           <span class="input-group-addon">
                             <i class="zmdi zmdi-account"></i>
                           </span>
-                          <label class="control-label" for="ms-form-user">Username</label>
+                          <label class="control-label" for="ms-form-user">Логин</label>
                           <%= f.text_field :name, :id => "ms-form-user", :class => "form-control" %>
                       </div>
                       <div class="form-group label-floating">
@@ -103,9 +102,17 @@
                       <div class="form-group label-floating">
                         <div class="input-group">
                           <span class="input-group-addon">
+                            <i class="fa fa-building-o"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-city">Город</label>
+                          <%= f.text_field :city, autofocus: false, :id => "ms-form-city", :class => "form-control" %>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
                             <i class="zmdi zmdi-lock"></i>
                           </span>
-                          <label class="control-label" for="ms-form-pass">Password</label>
+                          <label class="control-label" for="ms-form-pass">Пароль</label>
                           <%= f.password_field :password, autocomplete: "off", :id => "ms-form-pass", :class => "form-control" %>
                       </div>
                       <div class="form-group label-floating">
@@ -113,10 +120,10 @@
                           <span class="input-group-addon">
                             <i class="zmdi zmdi-lock"></i>
                           </span>
-                          <label class="control-label" for="ms-form-pass">Re-type Password</label>
+                          <label class="control-label" for="ms-form-pass">Пароль повторно</label>
                           <%= f.password_field :password_confirmation, autocomplete: "off", :id => "ms-form-pass", :class => "form-control" %>
                       </div>
-                      <div><%= f.submit "Sign up", :class => "btn btn-raised btn-block btn-primary" %></div>
+                      <div><%= f.submit "Зарегистрироваться", :class => "btn btn-raised btn-block btn-primary" %></div>
                     </fieldset>
                     <p class="notice"><%= notice %></p>
                     <p class="alert"><%= alert %></p>
@@ -129,7 +136,7 @@
                         <span class="input-group-addon">
                           <i class="zmdi zmdi-account"></i>
                         </span>
-                        <label class="control-label" for="ms-form-user">Username</label>
+                        <label class="control-label" for="ms-form-user">Логин</label>
                         <input type="text" id="ms-form-user" class="form-control"> </div>
                     </div>
                     <div class="form-group label-floating">
@@ -140,7 +147,7 @@
                         <label class="control-label" for="ms-form-email">Email</label>
                         <input type="email" id="ms-form-email" class="form-control"> </div>
                     </div>
-                    <button class="btn btn-raised btn-block btn-primary">Send Password</button>
+                    <button class="btn btn-raised btn-block btn-primary">Отправить пароль</button>
                   </fieldset>
                   </form>
                 </div>

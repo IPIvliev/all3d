@@ -26,12 +26,12 @@
                 <i class="zmdi zmdi-account"></i>
               </a>
             <% end %>
-            <form class="search-form animated zoomInDown animation-delay-9">
-              <input id="search-box" type="text" class="search-input" placeholder="Search..." name="q" />
+            <%= form_tag(posts_path, :method => "get", id: "search-form", :class => "search-form animated zoomInDown animation-delay-9") do %>
+              <%= text_field_tag :search, params[:search], placeholder: "Поиск...", :class => "search-input", :id => "search-box" %>
               <label for="search-box">
                 <i class="zmdi zmdi-search"></i>
               </label>
-            </form>
+            <% end %>
           </div>
         </div>
       </header>

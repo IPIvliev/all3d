@@ -9,9 +9,9 @@
       </div>
       <div class="media-body">
         <h4 class="media-heading">
-          <%= link_to message.sender.name, user_path(message.sender) %> <br>
+          Автор сообщения: <%= link_to message.sender.name, user_path(message.sender) %> <br>
           <small><b>Тема: </b><%= message.subject %></small><br>
-          <small><b>Дата: </b><%=  message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
+          <small><b>Дата: </b><%= Russian.strftime(message.created_at, "%A, %d %B %Y  в %H:%M") %></small>
         </h4>
         <%= message.body %>
       </div>

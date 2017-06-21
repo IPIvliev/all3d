@@ -8,10 +8,14 @@
   </div>
   <div class="media-body">
     <h4 class="media-heading">
-      <%= link_to conversation.originator.name, conversation_path(conversation) %> 
+      Автор: <%= link_to conversation.originator.name, conversation_path(conversation) %> 
       <%= "Новое сообщение" if conversation.messages.last.is_unread?(current_user) %><br>
-      <small><b>Subject: </b><%= conversation.subject %></small><br>
-      <small><b>Date: </b><%=  conversation.messages.last.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
+      Получатели: 
+      <% conversation.participants.each do |p| %>
+        <%= link_to p.name,  conversation_path(conversation) if p != current_user %>
+      <% end %><br>
+      <small><b>Тема: </b><%= conversation.subject %></small><br>
+      <small><b>Последнее сообщение: </b><%= Russian.strftime(conversation.messages.last.created_at, "%A, %d %B %Y  в %H:%M") %></small>
     </h4>
     <%= truncate conversation.messages.last.body, length: 250 %><br>
     <%= link_to "Посмотреть переписку и ответить на сообщение", conversation_path(conversation)  %>

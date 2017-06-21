@@ -18,4 +18,5 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require filterrific/filterrific-jquery
 //= require_tree .

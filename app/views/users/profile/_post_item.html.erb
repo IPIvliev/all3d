@@ -1,7 +1,7 @@
 <li class="ms-timeline-item wow materialUp">
 	<div class="ms-timeline-date">
 		<time class="timeline-time" datetime="">
-			<%= Russian::strftime(post.created_at, "%d %B %Y г.") %>
+			<%= Russian::strftime(post.created_at, "%d %B %Y") %>
 		</time>
 		<i class="ms-timeline-point bg-royal"></i>
 		<%= image_tag post.user.avatar.url(:thumb), :class => "ms-timeline-point-img" %>

@@ -5,6 +5,12 @@ class ModelsController < ApplicationController
   # GET /models.json
   def index
     @models = Model.where("active = ?", true).order('models.created_at DESC').page(params[:page]).per(15)
+
+    if params[:search]
+      @models = Model.where("active = ?", true).search(params[:search]).order("models.created_at DESC").page(params[:page]).per(15)
+    else
+      @models = Model.where("active = ?", true).order('models.created_at DESC').page(params[:page]).per(15)
+    end    
   end
 
   # GET /models/1

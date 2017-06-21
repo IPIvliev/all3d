@@ -44,6 +44,9 @@ gem 'ckeditor'
 gem 'acts_as_votable'
 gem 'impressionist'
 
+# Searching
+gem 'filterrific'
+
 # SEO
 gem 'friendly_id', '~> 5.1.0'
 gem 'babosa'

@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 	private
 
 	def sign_up_params
-		params.require(:user).permit(:name, :email, :password, :password_confirmation)
+		params.require(:user).permit(:name, :email, :password, :password_confirmation, :city)
 	end
 
 	def update_resource(resource, params)
@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
 	end
 
 	def account_update_params
-		params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
+		params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :city)
 	end
 	
     def after_update_path_for(resource)

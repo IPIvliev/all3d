@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
           :omniauthable
   include DeviseTokenAuth::Concerns::User
 
+  validates :city, presence: true, allow_blank: false
+
   # Images
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/img/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
@@ -41,6 +43,10 @@ class User < ActiveRecord::Base
 
   def mailboxer_email(object)
     self.email
+  end
+
+  def self.search(search)
+    where("city LIKE ?", "%#{search}%") 
   end
 
   private

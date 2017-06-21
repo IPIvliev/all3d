@@ -1,10 +1,27 @@
 class UsersController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+#    @users = User.order('users.last_sign_in_at DESC').page(params[:page]).per(12)
+
+    if params[:search]
+      @users = User.search(params[:search]).order(sort_column + ' ' + sort_direction).page(params[:page]).per(12)
+    else
+      @users = User.order(sort_column + ' ' + sort_direction).page(params[:page]).per(12)
+    end
+
+#    if params[:sort] == 'name'
+#      @users = User.order(sort_column + ' ' + sort_direction).page(params[:page]).per(12)
+#    elsif params[:sort] == 'created_at'
+#      @users = User.all.order("created_at #{sort_direction}").page(params[:page]).per(12)
+#    else
+#      @users = User.order('users.last_sign_in_at DESC').page(params[:page]).per(12)
+#    end
+
   end
 
   def messages
@@ -18,8 +35,10 @@ class UsersController < ApplicationController
         @models = @user.models
         @comments = @user.comments
 
-      	@items = (@posts.to_a + @models.to_a + @comments.to_a)
-      	@items = @items.sort_by { |obj| obj.created_at }.reverse
+      	items = (@posts.to_a + @models.to_a + @comments.to_a)
+        
+      	items = items.sort_by { |obj| obj.created_at }.reverse
+        @items = items.take(12)
 
   end
 
@@ -80,6 +99,14 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:title, :description, :cimage)
+      params.require(:user).permit(:title, :description, :cimage, :city)
     end
+
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : "last_sign_in_at"
+  end
+  
+  def sort_direction
+      %w[desc asc].include?(params[:direction]) ?  params[:direction] : "desc"
+  end  
 end

@@ -28,7 +28,7 @@
     <div class="card animated fadeInUp animation-delay-7">
       <div class="ms-hero-bg-royal ms-hero-img-coffee">
         <h3 class="color-white index-1 text-center no-m pt-4">
-          <%= link_to @user.name, user_path(@user) %>
+          <%= link_to user_name_with_mail(@user), user_path(@user) %>
         </h3>
         <div class="color-medium index-1 text-center np-m">
           <%= "Рейтинг: #{@user.points} баллов" %>
@@ -39,7 +39,7 @@
       </div>
       <div class="card-block pt-4 text-center">
         <h3 class="color-primary">Активность</h3>
-        <%= link_to "<i class='zmdi zmdi-email'></i> Начать переписку".html_safe, new_post_path, :class => "btn btn-raised btn-danger" %>
+        <%= link_to "<i class='zmdi zmdi-email'></i> Начать переписку".html_safe, new_conversation_path(:user => @user), :class => "btn btn-raised btn-danger" %>
       </div>
     </div>
   <% end %>

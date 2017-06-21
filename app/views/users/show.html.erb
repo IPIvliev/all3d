@@ -47,7 +47,7 @@
               <div class="col-md-4">
                 <div class="card card-info card-block text-center wow zoomInUp animation-delay-6">
                   <h2 class="color-info">
-                  	<%= @user.posts.where("active = ?", true).length %>
+                  	<%= @user.posts_count %>
                   </h2>
                   <i class="fa fa-4x fa-file-text color-info"></i>
                   <p class="mt-2 no-mb lead small-caps color-info">статьи</p>
@@ -55,14 +55,14 @@
               </div>
               <div class="col-md-4">
                 <div class="card card-success card-block text-center wow zoomInUp animation-delay-4">
-                  <h2 class="color-success"><%= @user.models.where("active = ?", true).length %></h2>
+                  <h2 class="color-success"><%= @user.models_count %></h2>
                   <i class="fa fa-4x fa-briefcase color-success"></i>
                   <p class="mt-2 no-mb lead small-caps color-success">модели</p>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="card card-royal card-block text-center wow zoomInUp animation-delay-2">
-                  <h2 class="color-royal"><%= @user.comments.length %></h2>
+                  <h2 class="color-royal"><%= @user.comments_count %></h2>
                   <i class="fa fa-4x fa-comments-o color-royal"></i>
                   <p class="mt-2 no-mb lead small-caps color-royal">комментарии</p>
                 </div>
@@ -81,6 +81,14 @@
                   </th>
                   <td>
                     <%= @user.name %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <i class="zmdi zmdi-calendar mr-1 color-royal"></i> Город
+                  </th>
+                  <td>
+                    <%= @user.city %>
                   </td>
                 </tr>
                 <tr>

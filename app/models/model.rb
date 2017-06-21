@@ -6,5 +6,11 @@ class Model < ActiveRecord::Base
 	has_many :comments
 	has_many :stls
 	has_many :images
-	belongs_to :user
+	belongs_to :user, counter_cache: true
+
+	# Searching
+	def self.search(search)
+	  where("title LIKE ?", "%#{search}%") 
+	end
+
 end

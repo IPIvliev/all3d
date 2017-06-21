@@ -5,7 +5,11 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    if params[:search]
+      @posts = Post.where("active = ?", true).search(params[:search]).order("created_at DESC").page(params[:page]).per(10)
+    else
+      @posts = Post.where("active = ?", true).order('created_at DESC').page(params[:page]).per(10)
+    end 
   end
 
   # GET /posts/1

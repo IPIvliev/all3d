@@ -118,9 +118,16 @@
                                 <% end %>
                             </div>
                             <div class="media-body">
-                              <%= link_to post_path(comment.post), :class => "media-heading" do %>
-                                <%= truncate_html(post_text(comment.post.title), length: 50, omission: "...") %> 
-                              <% end %><br>
+                              <% if comment.post.present? %>
+                                <%= link_to post_path(comment.post), :class => "media-heading" do %>
+                                  <%= truncate_html(comment.post.title, length: 50, omission: "...") %> 
+                                <% end %>
+                              <% elsif comment.model.present? %>
+                                <%= link_to model_path(comment.model), :class => "media-heading" do %>
+                                  <%= truncate_html(comment.model.title, length: 50, omission: "...") %> 
+                                <% end %>
+                              <% end %>
+                              <br>
                               <%= truncate_html(post_text(comment.body), length: 50, omission: "...") %>
                               <div class="media-footer text-small">
                                 <span class="mr-1">
