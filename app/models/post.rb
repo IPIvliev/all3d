@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
 
-	has_many :comments
-	has_many :postimages
+	has_many :comments, :dependent => :destroy
+	has_many :postimages, :dependent => :destroy
 	belongs_to :category
 	belongs_to :user, counter_cache: true
 

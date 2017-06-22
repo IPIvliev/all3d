@@ -6,11 +6,13 @@
                 <div id="carousel-example-generic" class="ms-carousel carousel slide" data-ride="carousel">
                   <!-- Indicators -->
                   <ol class="carousel-indicators">
+                  <% if @model.images.count > 1 %>
                     <% i = 0 %>
                     <% @model.images.each do |image| %>
                       <li data-target="#carousel-example-generic" data-slide-to="<%= i %>" <%= "class='active'" if i == 0%>></li>
                       <% i += 1 %>
                     <% end %>
+                  <% end %>
                   </ol>
                   <!-- Wrapper for slides -->
                   <div class="carousel-inner" role="listbox">

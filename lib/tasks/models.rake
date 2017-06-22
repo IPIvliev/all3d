@@ -39,7 +39,7 @@ namespace :pmodels do
 				author: author
 			}
 
-			unless Model.where("url = ?", url).present? && images.present?
+			unless Model.where("url = ?", url).present? && images.present? && images.count <= 10
 				model = Model.create(url: url, title: title, description: summary,
 				 	   user_id: 1, author: author, active: true)
 				images.each do |image|

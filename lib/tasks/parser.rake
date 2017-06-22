@@ -52,6 +52,7 @@ namespace :parsing do
 				}		
 
 				unless Post.where("url = ?", url).present?
+					I18n.locale = :en
 					post = Post.create(url: url, title: title, text: text,
 					 user_id: 1, description: description, keywords: keywords,
 					 author: author, date_of_creation: dateofcreation)
@@ -66,10 +67,14 @@ namespace :parsing do
 					i = post.postimages.first.id
 
 					doc.css("img").map do |img|
-					  img["src"] = "http://all3dprinters.ru#{post.postimages.find(i).file.url}"
-					  i += 1
+						if Rails.env.development?
+							img["src"] = "http://localhost:3000#{post.postimages.find(i).file.url}"
+					  	else
+					  		img["src"] = "http://all3dprinters.ru#{post.postimages.find(i).file.url}"
+					  	end
+					  	i += 1
 					end
-
+					I18n.locale = :en
 					post.update_attribute(:text, doc)
 					post.save
 
