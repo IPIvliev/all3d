@@ -22,23 +22,41 @@
       </span>
     </div>
   </div>
-  <%= file_field_tag "stls[]", type: :file, multiple: true %>
 
   <div class="form-group">
-    <%= file_field_tag "images[]", type: :file, multiple: true, :id => "pictureInput" %>
-<!--    <%= f.file_field :modelimage, :id => "inputFile4" %> -->
+      <%= file_field_tag "stls[]", type: :file, multiple: false %>
     <div class="input-group">
-      <input type="text" readonly="" class="form-control" placeholder="Выберите изображение для публикации">
+      <input type="text" readonly="" class="form-control" placeholder="Файл с моделью в zip архиве">
       <span class="input-group-btn input-group-sm">
         <button type="button" class="btn btn-fab btn-fab-mini">
           <i class="material-icons">attach_file</i>
         </button>
       </span>
-      <div id="target">Отправленные фотографии</div>
+    </div>
+  </div>
+  
+
+  <div class="form-group">
+    <%= file_field_tag "images[]", type: :file, multiple: true, :id => "pictureInput" %>
+<!--    <%= f.file_field :modelimage, :id => "inputFile4" %> -->
+    <div class="input-group">
+      <input type="text" readonly="" class="form-control" placeholder="Выберите изображение для публикации. Можно выбрать несколько фотографий">
+      <span class="input-group-btn input-group-sm">
+        <button type="button" class="btn btn-fab btn-fab-mini">
+          <i class="material-icons">attach_file</i>
+        </button>
+      </span>
+    </div>
+    <div class="row" style="margin-bottom: 40px;">
+      <div class="col-md-2" id="target0"></div>
+      <div class="col-md-2" id="target1"></div>
+      <div class="col-md-2" id="target2"></div>
+      <div class="col-md-2" id="target3"></div>
+      <div class="col-md-2" id="target4"></div>
     </div>
   </div>  
   <div class="field">
-    <%= f.label "Текст статьи" %><br>
+    <%= f.label "Описание модели" %><br>
     <%= f.cktext_area :description, cols: "130", rows: "7", ckeditor: { language: 'ru'} %>
   </div>
 
@@ -52,15 +70,79 @@
 $(function() {
   $('#pictureInput').on('change', function(event) {
     var files = event.target.files;
-    var image = files[1]
+    var image0 = files[0]
     var reader = new FileReader();
     reader.onload = function(file) {
       var img = new Image();
       img.src = file.target.result;
       img.className="img-avatar-circle"
-      $('#target').html(img);
+      $('#target0').html(img);
     }
-    reader.readAsDataURL(image);
+    reader.readAsDataURL(image0);
+  });
+});
+</script>
+<script>
+$(function() {
+  $('#pictureInput').on('change', function(event) {
+    var files = event.target.files;
+    var image0 = files[1]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      img.src = file.target.result;
+      img.className="img-avatar-circle"
+      $('#target1').html(img);
+    }
+    reader.readAsDataURL(image0);
+  });
+});
+</script>
+<script>
+$(function() {
+  $('#pictureInput').on('change', function(event) {
+    var files = event.target.files;
+    var image0 = files[2]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      img.src = file.target.result;
+      img.className="img-avatar-circle"
+      $('#target2').html(img);
+    }
+    reader.readAsDataURL(image0);
+  });
+});
+</script>
+<script>
+$(function() {
+  $('#pictureInput').on('change', function(event) {
+    var files = event.target.files;
+    var image0 = files[3]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      img.src = file.target.result;
+      img.className="img-avatar-circle"
+      $('#target3').html(img);
+    }
+    reader.readAsDataURL(image0);
+  });
+});
+</script>
+<script>
+$(function() {
+  $('#pictureInput').on('change', function(event) {
+    var files = event.target.files;
+    var image0 = files[4]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      img.src = file.target.result;
+      img.className="img-avatar-circle"
+      $('#target4').html(img);
+    }
+    reader.readAsDataURL(image0);
   });
 });
 </script>
