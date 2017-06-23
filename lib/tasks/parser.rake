@@ -64,15 +64,11 @@ namespace :parsing do
 					end
 
 					doc = Nokogiri::HTML(post.text) 
-					i = post.postimages.first.id
+					i = post.postimages.last.id
 
 					doc.css("img").map do |img|
-						if Rails.env.development?
 							img["src"] = "http://localhost:3000#{post.postimages.find(i).file.url}"
-					  	else
-					  		img["src"] = "http://all3dprinters.ru#{post.postimages.find(i).file.url}"
-					  	end
-					  	i += 1
+					  	i -= 1
 					end
 					I18n.locale = :en
 					post.update_attribute(:text, doc)

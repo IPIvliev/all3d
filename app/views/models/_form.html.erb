@@ -23,8 +23,9 @@
     </div>
   </div>
   <%= file_field_tag "stls[]", type: :file, multiple: true %>
+
   <div class="form-group">
-    <%= file_field_tag "images[]", type: :file, multiple: true %>
+    <%= file_field_tag "images[]", type: :file, multiple: true, :id => "pictureInput" %>
 <!--    <%= f.file_field :modelimage, :id => "inputFile4" %> -->
     <div class="input-group">
       <input type="text" readonly="" class="form-control" placeholder="Выберите изображение для публикации">
@@ -33,6 +34,7 @@
           <i class="material-icons">attach_file</i>
         </button>
       </span>
+      <div id="target">Отправленные фотографии</div>
     </div>
   </div>  
   <div class="field">
@@ -45,3 +47,20 @@
     <%= f.submit "Сохранить", data: { disable_with: "Данные сохраняются..." } %>
   </div>
 <% end %>
+
+<script>
+$(function() {
+  $('#pictureInput').on('change', function(event) {
+    var files = event.target.files;
+    var image = files[1]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      img.src = file.target.result;
+      img.className="img-avatar-circle"
+      $('#target').html(img);
+    }
+    reader.readAsDataURL(image);
+  });
+});
+</script>
