@@ -8,9 +8,24 @@ class Model < ActiveRecord::Base
 	has_many :images, :dependent => :destroy
 	belongs_to :user, counter_cache: true
 
+	# SEO Friendly id
+	extend FriendlyId
+	friendly_id :slug_candidates, use: [:slugged, :finders]
+
 	# Searching
 	def self.search(search)
 	  where("title LIKE ?", "%#{search}%") 
+	end
+
+	def normalize_friendly_id(text)
+	  text.to_slug.transliterate(:russian).normalize.to_s
+	end
+
+	def slug_candidates
+		[
+		  :title,
+		  [:title, :id]
+		]
 	end
 
 end

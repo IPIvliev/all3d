@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170621141824) do
+ActiveRecord::Schema.define(version: 20170628124330) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -246,7 +246,10 @@ ActiveRecord::Schema.define(version: 20170621141824) do
     t.datetime "stl_updated_at"
     t.text     "url",                     limit: 65535
     t.string   "author",                  limit: 255
+    t.string   "slug",                    limit: 255
   end
+
+  add_index "models", ["slug"], name: "index_models_on_slug", unique: true, using: :btree
 
   create_table "post_translations", force: :cascade do |t|
     t.integer  "post_id",     limit: 4,     null: false
@@ -354,10 +357,12 @@ ActiveRecord::Schema.define(version: 20170621141824) do
     t.integer  "posts_count",            limit: 4,     default: 0
     t.integer  "models_count",           limit: 4,     default: 0
     t.integer  "comments_count",         limit: 4,     default: 0
+    t.string   "slug",                   limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   create_table "votes", force: :cascade do |t|

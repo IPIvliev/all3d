@@ -2,15 +2,24 @@
 <html>
 <head>
 	<%= display_meta_tags :site => '3D Адаптивные технологии', reverse: true %>
-	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+
+	
+		<%= stylesheet_link_tag    "application", :media => "all" %>
+		<%= javascript_include_tag "application" %>
+
+    <link rel="stylesheet" href="/assets/css/select2.min.css" />
+    <link rel="stylesheet" href="/assets/css/preload.min.css" />
+    <link rel="stylesheet" href="/assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="/assets/css/style.red-700.min.css" />
+
 	<%= csrf_meta_tags %>
 	<meta name="keywords" content="3d, 3d принтеры, 3d модели, адаптивное производство, новости, распечатать модель, slt, слайсер, dlp, fdm, принтеры, сканер" />
 	<meta name="description" content="3d принтеры и модели" />
 	<meta name="yandex-verification" content="f72d7ca15e6c2509" />
 </head>
-<body 'no-turbolink'>
+<body “data-no-turbolink”>
 	
 	<!-- <%= render 'static_pages/preloader' %> -->
 	<%= render 'static_pages/metrika' %>
@@ -20,6 +29,13 @@
 		<%= yield %>
 		<%= render 'static_pages/footer' %>
 	</div>
+	<script src="/assets/js/select2.min.js"></script>
+
+    	
+    <script src="/assets/js/plugins.min.js"></script>
+    <script src="/assets/js/app.min.js"></script>
+    <script src="/assets/js/index.js"></script>
+
 
 </body>
 </html>

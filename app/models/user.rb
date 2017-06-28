@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
 
   before_save :ensure_authentication_token
 
+  # SEO Friendly id
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]  
+
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token
@@ -49,6 +53,17 @@ class User < ActiveRecord::Base
   def self.search(search)
     where("city LIKE ?", "%#{search}%") 
   end
+
+  def normalize_friendly_id(text)
+    text.to_slug.transliterate(:russian).normalize.to_s
+  end
+
+  def slug_candidates
+    [
+      :name,
+      [:name, :id]
+    ]
+  end  
 
   private
 
