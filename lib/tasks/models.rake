@@ -8,7 +8,7 @@ namespace :pmodels do
 
 		doc = Nokogiri::HTML(html)
 
-		links = doc.css("div.thing div.row-fluid a.thing-img-wrapper")
+		links = doc.css("div.thing div a.thing-img-wrapper")
 
 		links = links[0...12]
 

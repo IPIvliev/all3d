@@ -22,6 +22,10 @@ class Post < ActiveRecord::Base
 	def normalize_friendly_id(text)
 	  text.to_slug.transliterate(:russian).normalize.to_s
 	end
+
+  Paperclip.interpolates :slug do |attachment, style|
+    attachment.instance.slug
+  end	
 	
 	def slug_candidates
 		[
