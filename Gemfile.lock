@@ -20,10 +20,25 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_admin_flat_skin (0.1.2)
     active_model_serializers (0.10.3)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
       jsonapi (= 0.1.1.beta2)
+    activeadmin (1.0.0)
+      arbre (>= 1.1.1)
+      bourbon
+      coffee-rails
+      formtastic (~> 3.1)
+      formtastic_i18n
+      inherited_resources (~> 1.7)
+      jquery-rails
+      jquery-ui-rails
+      kaminari (>= 0.15, < 2.0)
+      railties (>= 4.2, < 5.2)
+      ransack (~> 1.3)
+      sass-rails
+      sprockets (< 4.1)
     activejob (4.2.6)
       activesupport (= 4.2.6)
       globalid (>= 0.3.0)
@@ -46,6 +61,8 @@ GEM
     ambry (1.0.0)
     ancestry (2.2.2)
       activerecord (>= 3.0.0)
+    arbre (1.1.1)
+      activesupport (>= 3.0.0)
     arel (6.0.4)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -55,6 +72,9 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bourbon (4.3.4)
+      sass (~> 3.4)
+      thor (~> 0.19)
     builder (3.2.3)
     byebug (9.0.6)
     carrierwave (1.1.0)
@@ -103,6 +123,9 @@ GEM
       faraday (>= 0.7.4, < 1.0)
     fastimage (2.1.0)
     filterrific (2.1.2)
+    formtastic (3.1.5)
+      actionpack (>= 3.2.13)
+    formtastic_i18n (0.6.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     globalid (0.4.0)
@@ -112,6 +135,9 @@ GEM
       activerecord (>= 4.2.0, < 4.3)
     globalize-accessors (0.2.1)
       globalize (~> 5.0, >= 5.0.0)
+    has_scope (0.7.1)
+      actionpack (>= 4.1, < 5.2)
+      activesupport (>= 4.1, < 5.2)
     hashie (3.4.2)
     html_truncator (0.4.1)
       nokogiri (~> 1.5)
@@ -120,6 +146,11 @@ GEM
     i18n (0.8.1)
     impressionist (1.5.2)
       nokogiri (~> 1.6)
+    inherited_resources (1.7.2)
+      actionpack (>= 3.2, < 5.2.x)
+      has_scope (~> 0.6)
+      railties (>= 3.2, < 5.2.x)
+      responders
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
@@ -130,6 +161,8 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
+    jquery-ui-rails (6.0.1)
+      railties (>= 3.2.16)
     json (1.8.6)
     jsonapi (0.1.1.beta2)
       json (~> 1.8)
@@ -179,6 +212,8 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    polyamorous (1.3.1)
+      activerecord (>= 3.0)
     public_suffix (2.0.5)
     rack (1.6.5)
     rack-cors (0.4.0)
@@ -209,6 +244,12 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (12.0.0)
+    ransack (1.8.3)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.3)
     rdoc (4.3.0)
     react-rails (2.1.0)
       babel-transpiler (>= 0.7.0)
@@ -271,7 +312,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_admin_flat_skin
   active_model_serializers
+  activeadmin
   acts_as_votable
   ancestry
   babosa

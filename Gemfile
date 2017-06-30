@@ -64,6 +64,10 @@ gem 'metainspector'
 # Add tree to articles. As wiki
 gem 'ancestry'
 
+# Admin
+gem 'activeadmin'
+gem 'active_admin_flat_skin'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
