@@ -14,14 +14,6 @@ class UsersController < ApplicationController
       @users = User.order(sort_column + ' ' + sort_direction).page(params[:page]).per(12)
     end
 
-#    if params[:sort] == 'name'
-#      @users = User.order(sort_column + ' ' + sort_direction).page(params[:page]).per(12)
-#    elsif params[:sort] == 'created_at'
-#      @users = User.all.order("created_at #{sort_direction}").page(params[:page]).per(12)
-#    else
-#      @users = User.order('users.last_sign_in_at DESC').page(params[:page]).per(12)
-#    end
-
   end
 
   def messages

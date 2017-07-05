@@ -1,11 +1,22 @@
 ActiveAdmin.register Model do
-	permit_params :title, :description, :active
+	permit_params :title, :description, :active, :keywords
 	menu label: "Модели"
 
   index do
     selectable_column
     id_column
     column "Название", :title
+    column "SEO" do |model|
+      if model.description.present? && model.keywords.present?
+        "+/+"
+      elsif model.description.present? && model.keywords.blank?
+        "+/-"
+      elsif model.description.blank? && model.keywords.present?
+        "-/+"
+      else
+        "-/-"
+      end
+    end
     column "Активно", :active
     column "Дата публикации", :created_at
     actions
@@ -15,6 +26,7 @@ ActiveAdmin.register Model do
     f.inputs "Изменить модель" do
       f.input :title
       f.input :description
+      f.input :keywords
       f.input :active
     end
     f.actions

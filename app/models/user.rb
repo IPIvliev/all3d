@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   has_many :models
   has_many :stls
   has_many :images
+  has_many :projects
+  has_many :products
 
   # User rank
   has_merit

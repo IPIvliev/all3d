@@ -10,13 +10,19 @@ class ModelsController < ApplicationController
       @models = Model.where("active = ?", true).search(params[:search]).order("models.created_at DESC").page(params[:page]).per(15)
     else
       @models = Model.where("active = ?", true).order('models.created_at DESC').page(params[:page]).per(15)
-    end    
+    end   
+
+    set_meta_tags :description => "Скачать модели в формате stl для печати на 3d принтере. База моделей постоянно обновляется.",
+              :keywords => "3d-модели, stl формат, модели для печати, детали, 3d, производство, прототепирование, адаптивное, скачать, бесплатно"
+
   end
 
   # GET /models/1
   # GET /models/1.json
   def show
     set_meta_tags :title => @model.title,
+                  :description => @model.description,
+                  :keywords => @model.keywords,    
                   :canonical => request.base_url + request.original_fullpath
   end
 

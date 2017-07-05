@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170629112237) do
+ActiveRecord::Schema.define(version: 20170705085508) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20170629112237) do
     t.datetime "updated_at",                                null: false
     t.string   "ancestry",    limit: 255
     t.boolean  "active",                    default: false
+    t.string   "keywords",    limit: 255
   end
 
   add_index "articles", ["ancestry"], name: "index_articles_on_ancestry", using: :btree
@@ -105,6 +106,7 @@ ActiveRecord::Schema.define(version: 20170629112237) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.string   "ancestry",   limit: 255
+    t.integer  "project_id", limit: 4
   end
 
   add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
@@ -280,6 +282,8 @@ ActiveRecord::Schema.define(version: 20170629112237) do
     t.text     "url",                     limit: 65535
     t.string   "author",                  limit: 255
     t.string   "slug",                    limit: 255
+    t.integer  "project_id",              limit: 4
+    t.string   "keywords",                limit: 255
   end
 
   add_index "models", ["slug"], name: "index_models_on_slug", unique: true, using: :btree
@@ -335,9 +339,45 @@ ActiveRecord::Schema.define(version: 20170629112237) do
     t.text     "description",            limit: 65535
     t.text     "keywords",               limit: 65535
     t.integer  "visits",                 limit: 4,     default: 0
+    t.integer  "project_id",             limit: 4
   end
 
   add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
+
+  create_table "products", force: :cascade do |t|
+    t.string   "title",          limit: 255
+    t.integer  "price",          limit: 4,     default: 0
+    t.integer  "user_id",        limit: 4
+    t.text     "description",    limit: 65535
+    t.integer  "project_id",     limit: 4
+    t.integer  "orders_count",   limit: 4,     default: 0
+    t.integer  "comments_count", limit: 4,     default: 0
+    t.boolean  "status",                       default: false
+    t.boolean  "active",                       default: false
+    t.string   "slug",           limit: 255
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.string   "keywords",       limit: 255
+  end
+
+  add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "title",          limit: 255
+    t.text     "description",    limit: 65535
+    t.string   "projectimage",   limit: 255
+    t.boolean  "active",                       default: false
+    t.integer  "user_id",        limit: 4
+    t.integer  "comments_count", limit: 4,     default: 0
+    t.integer  "posts_count",    limit: 4,     default: 0
+    t.integer  "models_count",   limit: 4,     default: 0
+    t.integer  "products_count", limit: 4,     default: 0
+    t.string   "slug",           limit: 255
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+  end
+
+  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
 
   create_table "sashes", force: :cascade do |t|
     t.datetime "created_at"

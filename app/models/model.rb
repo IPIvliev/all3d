@@ -7,6 +7,7 @@ class Model < ActiveRecord::Base
 	has_many :stls, :dependent => :destroy
 	has_many :images, :dependent => :destroy
 	belongs_to :user, counter_cache: true
+	belongs_to :project, counter_cache: true
 
 	# SEO Friendly id
 	extend FriendlyId

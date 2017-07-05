@@ -9,7 +9,11 @@ class PostsController < ApplicationController
       @posts = Post.where("active = ?", true).search(params[:search]).order("created_at DESC").page(params[:page]).per(10)
     else
       @posts = Post.where("active = ?", true).order('created_at DESC').page(params[:page]).per(10)
-    end 
+    end
+
+    set_meta_tags :description => "Новости индустрии 3d печати. Статьи собраны и переведены специалистами портала Адаптивные технологии.",
+              :keywords => "новости о 3d-печати, развитие 3d-принтеров, статьи об адаптивном производстве, сообщения, статьи, 3d, прототепирование, 3d печать в СМИ"
+
   end
 
   # GET /posts/1

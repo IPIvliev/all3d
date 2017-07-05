@@ -1,5 +1,5 @@
 ActiveAdmin.register Post do
-	permit_params :title, :title_en, :title_ru, :text, :active
+	permit_params :title, :title_en, :title_ru, :text, :active, :description, :keywords
 
 	menu label: "Статьи"
 
@@ -9,6 +9,17 @@ ActiveAdmin.register Post do
     column "Наименование EN", :title_en
     column "Наименование RU", :title_ru
     column "Опубликовано", :active
+    column "SEO" do |post|
+      if post.description.present? && post.keywords.present?
+        "+/+"
+      elsif post.description.present? && post.keywords.blank?
+        "+/-"
+      elsif post.description.blank? && post.keywords.present?
+        "-/+"
+      else
+        "-/-"
+      end
+    end
     column "Дата публикации", :created_at
     actions
   end
@@ -17,6 +28,8 @@ ActiveAdmin.register Post do
     f.inputs "Изменить статью" do
       f.input :title_en
       f.input :title_ru
+      f.input :description
+      f.input :keywords
       f.input :text, :as => :ckeditor
       div do
       	div post.text_en.html_safe
@@ -32,6 +45,8 @@ ActiveAdmin.register Post do
         column :id
         column "Наименование", :title
         column "Опубликовано", :active
+        column :description
+        column :keywords
       end
       if post.text
 	      div do

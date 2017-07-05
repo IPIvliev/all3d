@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
 	has_many :postimages, :dependent => :destroy
 	belongs_to :category
 	belongs_to :user, counter_cache: true
+	belongs_to :project, counter_cache: true
 
 	#Translations
 	translates :title, :text, :description, :keywords

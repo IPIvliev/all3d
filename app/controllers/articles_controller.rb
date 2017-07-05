@@ -5,6 +5,10 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
     @articles = Article.where("active =?", true).order('articles.title ASC')
+
+    set_meta_tags :description => "Википедия о 3d-печати. В нашей библиотеке вы найдёте информацию о развитии индустрии прототепирования и ознакомитесь с основами адаптивного производства.",
+              :keywords => "энциклопедия, 3d печать, 3d, вопросы и ответы, dlp, fdm, принтер, sla, slm, порошковые, фотополимер, полимер, металл"
+
   end
 
   # GET /articles/1
@@ -12,6 +16,8 @@ class ArticlesController < ApplicationController
   def show
     @articles = Article.where("active =?", true).order('articles.title ASC')
     set_meta_tags :title => @article.title,
+                  :description => @article.description,
+                  :keywords => @article.keywords,
                   :canonical => request.base_url + request.original_fullpath
   end
 
