@@ -26,7 +26,13 @@
                     <div class="card card-danger" style="height: 280px;">
                       <div class="withripple zoom-img">
                         <%= link_to project_path(project) do %>
-                          <%= image_tag project.projectimages.first.image.url(:medium), :class => "img-responsive" if project.projectimages.present? %>
+                          <% if project.logo.present? %>
+                            <%= image_tag project.logo.url(:medium), :class => "img-responsive" %>                          
+                          <% elsif project.projectimages.present? %>
+                            <%= image_tag project.projectimages.first.image.url(:medium), :class => "img-responsive" %>
+                          <% else %>
+                            <%= image_tag project.user.avatar.url(:medium), :class => "img-responsive" %>
+                          <% end %>
                         <% end %>
                       </div>
                       <div class="card-block text-center">
