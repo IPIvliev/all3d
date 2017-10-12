@@ -17,7 +17,7 @@ SitemapGenerator::Sitemap.create do
     add model_path(model), :lastmod => model.updated_at, :changefreq => 'monthly', :priority => 1.0
   end
 
-  Project.where("active = true").find_each do |model|
+  Project.where("active = true").find_each do |project|
     add project_path(project), :lastmod => project.updated_at, :changefreq => 'monthly', :priority => 1.0
   end
 
