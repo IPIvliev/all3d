@@ -1,12 +1,21 @@
 Rails.application.routes.draw do
 
   resources :products
+
+  # Проекты
   resources :projects
+  get ":project/editgallery" => "projects#get_gallery", as: :get_project_gallery
+  post ":project/editgallery" => "projects#edit_gallery", as: :edit_project_gallery
+  delete ":project/delete/:image" => "projects#delete_projectimage", as: :delete_projectimage
+  get ":user/projects" => "projects#user_projects", as: :user_projects
+
+  # Администрирование
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   mount Ckeditor::Engine => '/ckeditor'
   resources :articles
+
   # Статические страницы
   get "/index.html", :to => "static_pages#index"
   get "/contacts.html", :to => "static_pages#contacts"

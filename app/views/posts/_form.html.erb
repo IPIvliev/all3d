@@ -23,12 +23,20 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <label for="select111" class="col-md-2 control-label">Выберите категорию</label>
-    <div class="col-md-10">
-      <%= f.collection_select(:category_id, Category.all, :id, :title, {}, {:class=>'form-control'}) %>
+  <% if params[:project].blank? %>
+    <div class="form-group">
+      <label for="select111" class="col-md-2 control-label">Выберите категорию</label>
+      <div class="col-md-10">
+        <%= f.collection_select(:category_id, Category.all, :id, :title, {}, {:class=>'form-control'}) %>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="form-group">
+      <label class="control-label" for="disabledInput">Проект</label>
+      <input class="form-control" type="text" placeholder="<%= Project.find(params[:project]).title %>" disabled="true">
+    </div>
+    <%= f.hidden_field :project_id, :value => Project.find(params[:project]).id %>
+  <% end %>
   <!-- Изображение. Сейчас нигде не используется. Для заставки берётся первое изображение из текста
   <br><br>
   <div class="form-group">

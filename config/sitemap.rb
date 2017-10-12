@@ -17,9 +17,5 @@ SitemapGenerator::Sitemap.create do
     add model_path(model), :lastmod => model.updated_at, :changefreq => 'monthly', :priority => 1.0
   end
 
-  User.find_each do |user|
-    add user_path(user), :lastmod => user.created_at, :changefreq => 'monthly', :priority => 0.7
-  end
-
   add '/contacts.html', :priority => 0.3, :changefreq => 'yearly'
 end

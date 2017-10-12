@@ -26,7 +26,7 @@ class PostsController < ApplicationController
     set_meta_tags :title => @post.title,
               :description => @post.description,
               :keywords => @post.keywords,
-              :canonical => request.base_url + request.original_fullpath    
+              :canonical => request.base_url + request.original_fullpath             
   end
 
   # GET /posts/new
@@ -110,6 +110,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :text, :user_id, :active, :like, :postimage, :dislike, :pimage, :category_id, :category, :description, :keywords, :author)
+      params.require(:post).permit(:title, :text, :user_id, :active, :like, :postimage, :dislike, :pimage, :category_id, :category, :description, :keywords, :author, :project_id)
     end
 end

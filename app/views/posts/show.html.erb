@@ -11,6 +11,7 @@
                         <%= image_tag @post.user.avatar.url(:thumb), :class => "img-circle mr-1", :style => "width: 50px; height: 50px;" %>
                         <%= link_to user_name_with_mail(@post.user), user_path(@post.user) %>
                         <%= link_to @post.category.title, category_path(@post.category), :class => "ms-tag ms-tag-info" if @post.category.present? %>
+                        <%= link_to @post.project.title, project_path(@post.project), :class => "ms-tag ms-tag-info" if @post.project.present? %>
                         <span class="ml-1 hidden-xs ">
                             <i class="zmdi zmdi-time mr-05 color-info "></i>
                             <span class="color-medium-dark ">
@@ -56,6 +57,7 @@
                     <%= image_tag @post.user.avatar.url(:thumb), :class => "img-circle mr-1", :style => "width: 50px; height: 50px;" %>
                     <%= link_to user_name_with_mail(@post.user), user_path(@post.user) %>
                     <%= link_to @post.category.title, category_path(@post.category), :class => "ms-tag ms-tag-info" if @post.category.present? %>
+                    <%= link_to @post.project.title, project_path(@post.project), :class => "ms-tag ms-tag-info" if @post.project.present? %>
                     <span class="ml-1 hidden-xs ">
                         <i class="zmdi zmdi-time mr-05 color-info "></i>
                         <span class="color-medium-dark ">

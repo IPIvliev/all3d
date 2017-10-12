@@ -19,6 +19,7 @@ namespace :parsing do
 		articles = links.map do |link|
 			if (link.text.strip == 'More')
 				article_href = link.attr('href')
+				article_href.slice!(0)
 
 				url = 'http://www.3ders.org'+article_href
 				html = open(url)
@@ -97,11 +98,12 @@ namespace :parsing do
 
 		links = links.reject{ |l| l.text.strip != "More" }
 
-		links = links[0...1]
+		links = links[0...3]
 
 		articles = links.map do |link|
 			if (link.text.strip == 'More')
 				article_href = link.attr('href')
+				article_href.slice!(0)
 
 				url = 'http://www.3ders.org'+article_href
 				html = open(url)

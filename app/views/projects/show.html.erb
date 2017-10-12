@@ -1,49 +1,116 @@
-<p id="notice"><%= notice %></p>
+    <a href="javascript:void(0)" class="ms-conf-btn ms-configurator-btn btn-circle btn-circle-raised btn-circle-primary animated rubberBand">
+      <i class="fa fa-gears"></i>
+    </a>
 
-<p>
-  <strong>Title:</strong>
-  <%= @project.title %>
-</p>
+      <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-primary">
+        <div class="container">
+          <div class="text-center">
+            <img src="/img/demo/avatar1.jpg" alt="..." class="ms-avatar-hero animated zoomIn animation-delay-7">
+            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
+              <%= @project.title %>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="card card-hero animated slideInUp animation-delay-8 mb-6">
+          <div class="card-block">
+            <h2 class="color-primary">О проекте</h2>
+            <div class="row">
+              <div class="col-md-12 text-justify">
+                <%= @project.description.html_safe %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
 
-<p>
-  <strong>Projectimage:</strong>
-  <%= @project.projectimage %>
-</p>
+      <div class="container">
+        <h1 class="color-primary text-center wow fadeInUp animation-delay-4">Новости проекта</h1>
+        <p class="lead text-center wow fadeInUp animation-delay-4">Последние события, связанные с проектом.</p>
+        <% if current_user == @project.user %>
+          <%= link_to "<i class='zmdi zmdi-email'></i> Добавить новость".html_safe, new_post_path(project: @project), :class => "btn btn-raised btn-success text-center" %>
+        <% end %>
+        <div class="row">
+          <% @project.posts.each do |post| %>
+            <div class="col-md-4">
+              <div class="card card-warning wow zoomInUp animation-delay-5">
+                <div class="withripple zoom-img">
+                  <%= link_to post_path(post) do %>
+                    <% doc = Nokogiri::HTML(post.text) %>
+                    <% if img = doc.xpath('//img').first %>
+                      <%= image_tag img.attr('src'), :class => "img-responsive", style: 'width:100%; height:250px;' %>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="card-block">
+                        <span class="ml-1 hidden-xs ">
+                            <i class="zmdi zmdi-time mr-05 color-info "></i>
+                            <span class="color-medium-dark ">
+                                <%= Russian::strftime(post.created_at, "%d %B %Y г.") %>
+                            </span>
+                        </span>
+                  <% if current_user == post.user %>
+                    <%= link_to edit_post_path(post, project: @project), :class => "btn-circle btn-circle-lg btn-circle-white color-warning btn-circle-raised btn-card-float left wow zoomInDown", :style => "visibility: visible; animation-name: zoomInDown;" do %>
+                      <i class="fa fa-pencil"></i>
+                    <% end %>
+                    <%= link_to post_path(post), method: :put, :class => "btn-circle btn-circle-lg btn-circle-white color-danger btn-circle-raised btn-card-float right wow zoomInDown", :style => "visibility: visible; animation-name: zoomInDown;" do %>
+                      <i class="fa fa-trash"></i>
+                    <% end %>
+                  <% end %>
 
-<p>
-  <strong>Active:</strong>
-  <%= @project.active %>
-</p>
+                  <h3 class="color-warning"><%= post.title %></h3>
+                  <%= truncate_html(post_text(post.text), length: 250, omission: "...") %>
+                  <div class="row">
+                    <div class="col-xs-6 text-right">
+                      <%= link_to post_path(post), :class => "btn btn-raised btn-sm btn-warning" do %>
+                        <i class="zmdi zmdi-account"></i> Читать полностью
+                      <% end %>
 
-<p>
-  <strong>User:</strong>
-  <%= @project.user_id %>
-</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
 
-<p>
-  <strong>Comments count:</strong>
-  <%= @project.comments_count %>
-</p>
+      <!-- container -->
+      <div class="wrap ms-hero-bg-dark-light ms-hero-img-airplane ms-bg-fixed mb-6 mt-4">
+        <div class="container">
+          <h2 class="text-center color-white no-mt mb-6 wow fadeInUp">Фотогалерея проекта</h2>
 
-<p>
-  <strong>Posts count:</strong>
-  <%= @project.posts_count %>
-</p>
+            <div class="container">
+            <% if current_user == @project.user %>
+              <%= link_to "<i class='zmdi zmdi-email'></i> Добавить фотографию".html_safe, edit_project_gallery_path(@project), :class => "btn btn-raised btn-success text-center" %>
+            <% end %>
+        <div class="row">
+          <% @project.projectimages.each do |image| %>
+            <div class="col-md-3 col-sm-6">
+              <div class="card wow zoomIn" style="height:200px;">
+                <div class="card-block p-05 ">
+                  <div class="withripple zoom-img">
+                    <%= link_to image.image.url(:large), data: { lightbox: "gallery" } do %>
+                      <%= image_tag image.image.url(:medium), :class => "img-responsive" %>
+                      <% if current_user == @project.user %>
+                        <%= link_to delete_projectimage_path(@project, image),  method: :delete, data: { confirm: 'Вы хотите удалить фотографию?' }, :class => "btn-circle btn-circle-lg btn-circle-white color-danger btn-circle-raised btn-card-float right wow zoomInDown", :style => "visibility: visible; animation-name: zoomInDown;" do %>
+                          <i class="fa fa-trash"></i>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
 
-<p>
-  <strong>Models count:</strong>
-  <%= @project.models_count %>
-</p>
 
-<p>
-  <strong>Products count:</strong>
-  <%= @project.products_count %>
-</p>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+        </div>
+      </div>      
+      <!-- Витрина, когда будет возможность покупать и продавать 
+      <%= render "/projects/moduls/vitrina" %>
+      -->

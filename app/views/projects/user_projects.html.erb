@@ -1,0 +1,54 @@
+     <div class="container">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="row">
+              <% if @projects.present? %>
+                <div class="card сard-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        <i class="zmdi zmdi-graduation-cap"></i> Открытые вами проекты
+                      </h3>
+                    </div>
+                    <table class="table table-no-border table-striped">
+                      <thead>
+                        <tr>
+                          <th>Название</th>
+                          <th>Количество новостей</th>
+                          <th>Количество фотографий</th>
+                          <th>Статус</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @projects.each do |project| %>
+                          <tr class="<%= row_color(project.active) %>">
+                            <td>
+                              <%= link_to project.title, project_path(project) %>
+                            </td>
+                            <td> 
+                              <%= project.posts.count %>
+                            </td>
+                            <td>
+                              <%= project.projectimages.count %>
+                            </td>
+                            <td>
+                              <%= project_status(project.active) %>
+                            </td>
+                          </tr>
+                        <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              <% else %>
+                <p>По вашему запросу ничего не найдено.</p>
+              <% end %>
+
+            </div>
+            <div class="row">
+              <nav aria-label="Page navigation">
+                <%= paginate @projects %>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- container -->

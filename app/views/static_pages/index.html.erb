@@ -2,7 +2,7 @@
         <div class="container">
           <div class="text-center">
             <span class="ms-logo ms-logo-lg ms-logo-white center-block mb-2 mt-2 animated zoomInDown animation-delay-5">3D</span>
-            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Будущее сегодня</h1>
+            <strong class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Будущее сегодня</strong>
             <p class="lead lead-lg color-white text-center center-block mt-2 mw-800 fw-300 animated fadeInUp animation-delay-7">Интерактивный портал о
               <span class="colorStar">3d принтерах</span>,
               <span class="colorStar">3d сканерах</span> и 
@@ -28,11 +28,11 @@
               <div class="card-block">
               <% if user_signed_in? %>
                 <% unless current_user.voted_for?(post) %>
-                <%= link_to like_post_path(post), method: :put, :class => "btn-circle btn-circle-lg btn-circle-white color-success btn-circle-raised btn-card-float left wow zoomInDown", :style => "visibility: visible; animation-name: zoomInDown;" do %>
-                  <i class="fa fa-thumbs-up"></i>
-                <% end %>
-                <%= link_to dislike_post_path(post), method: :put, :class => "btn-circle btn-circle-lg btn-circle-white color-danger btn-circle-raised btn-card-float right wow zoomInDown", :style => "visibility: visible; animation-name: zoomInDown;" do %>
-                  <i class="fa fa-thumbs-down"></i>
+                  <%= link_to like_post_path(post), method: :put, :class => "btn-circle btn-circle-lg btn-circle-white color-success btn-circle-raised btn-card-float left wow zoomInDown", :style => "visibility: visible; animation-name: zoomInDown;" do %>
+                    <i class="fa fa-thumbs-up"></i>
+                  <% end %>
+                  <%= link_to dislike_post_path(post), method: :put, :class => "btn-circle btn-circle-lg btn-circle-white color-danger btn-circle-raised btn-card-float right wow zoomInDown", :style => "visibility: visible; animation-name: zoomInDown;" do %>
+                    <i class="fa fa-thumbs-down"></i>
                   <% end %>
                 <% end %>
               <% end %>

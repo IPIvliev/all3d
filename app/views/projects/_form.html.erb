@@ -11,43 +11,71 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+  <div class="form-group label-floating has-success">
+    <label class="control-label" for="focusedInput2">Название проекта</label>
+    <%= f.text_field :title, :class => "form-control", :id => "focusedInput2" %>
+    <p class="help-block">Обязательное к заполнению поле</p>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+
+  <div class="form-group label-floating has-warning">
+    <label class="control-label" for="focusedInput2">Сайт проекта</label>
+    <%= f.text_field :site, :class => "form-control", :id => "focusedInput2" %>
+    <p class="help-block">Заполнять не обязательно</p>
   </div>
-  <div class="field">
-    <%= f.label :projectimage %><br>
-    <%= f.text_field :projectimage %>
+
+  <div class="form-group label-floating">
+      <%= file_field_tag "stls[]", type: :file, multiple: false %>
+    <div class="input-group">
+      <input type="text" readonly="" class="form-control" placeholder="Логотип объекта или изображение для его замены">
+      <p class="help-block">Заполнять не обязательно</p>
+      <span class="input-group-btn input-group-sm">
+        <button type="button" class="btn btn-fab btn-fab-mini">
+          <i class="material-icons">attach_file</i>
+        </button>
+      </span>
+    </div>
   </div>
+
+  <div class="form-group">
+      <%= file_field_tag "stls[]", type: :file, multiple: false %>
+    <div class="input-group">
+      <input type="text" readonly="" class="form-control" placeholder="Подложка проекта (отображается в шапке страницы)">
+      <span class="input-group-btn input-group-sm">
+        <button type="button" class="btn btn-fab btn-fab-mini">
+          <i class="material-icons">attach_file</i>
+        </button>
+      </span>
+    </div>
+  </div>  
+
+  <div class="form-group">
+    <%= file_field_tag "images[]", type: :file, multiple: true, :id => "pictureInput" %>
+<!--    <%= f.file_field :modelimage, :id => "inputFile4" %> -->
+    <div class="input-group">
+      <input type="text" readonly="" class="form-control" placeholder="Галлерея проекта. Можно выбрать несколько фотографий">
+      <span class="input-group-btn input-group-sm">
+        <button type="button" class="btn btn-fab btn-fab-mini">
+          <i class="material-icons">attach_file</i>
+        </button>
+      </span>
+    </div>
+    <div class="row" style="margin-bottom: 40px;">
+      <div class="col-md-2" id="target0"></div>
+      <div class="col-md-2" id="target1"></div>
+      <div class="col-md-2" id="target2"></div>
+      <div class="col-md-2" id="target3"></div>
+      <div class="col-md-2" id="target4"></div>
+    </div>
+  </div> 
+
   <div class="field">
-    <%= f.label :active %><br>
-    <%= f.check_box :active %>
+    <%= f.label "Описание проекта" %><br>
+    <%= f.cktext_area :description, cols: "130", rows: "7", ckeditor: { language: 'ru'} %>
   </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :comments_count %><br>
-    <%= f.number_field :comments_count %>
-  </div>
-  <div class="field">
-    <%= f.label :posts_count %><br>
-    <%= f.number_field :posts_count %>
-  </div>
-  <div class="field">
-    <%= f.label :models_count %><br>
-    <%= f.number_field :models_count %>
-  </div>
-  <div class="field">
-    <%= f.label :products_count %><br>
-    <%= f.number_field :products_count %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <div class="col-md-10 col-md-offset-2">
+      <%= f.submit "Сохранить", :class => "btn btn-raised btn-primary", data: { disable_with: "Данные сохраняются..." }  %>
+      <%= link_to 'Отмена', projects_path, :class => "btn btn-danger" %>
+    </div>
   </div>
 <% end %>

@@ -3,6 +3,7 @@ class Project < ActiveRecord::Base
 	has_many :posts
 	has_many :models
 	has_many :comments, :dependent => :destroy
+	has_many :projectimages, :dependent => :destroy
 
 	# SEO Friendly id
 	extend FriendlyId
