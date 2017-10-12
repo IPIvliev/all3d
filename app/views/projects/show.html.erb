@@ -1,13 +1,25 @@
-    <a href="javascript:void(0)" class="ms-conf-btn ms-configurator-btn btn-circle btn-circle-raised btn-circle-primary animated rubberBand">
-      <i class="fa fa-gears"></i>
-    </a>
+<% if current_user == @project.user %>
+    <%= link_to edit_project_path(@project), :class => " ms-configurator-btn btn-circle btn-circle-raised btn-circle-primary animated rubberBand", style: "width: 100px;" do %>
+      Изменить
+    <% end %>
+<% end %>
 
-      <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-primary">
+      
+      <% if @project.background.present? %>
+        <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-project">
+          <%= image_tag @project.background.url(:large), :style => 'position:absolute; top:0;left:0;right:0;bottom:0;width:100%;height:100%;' %>
+      <% else %>
+        <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-primary">
+      <% end %>
         <div class="container">
           <div class="text-center">
-            <img src="/img/demo/avatar1.jpg" alt="..." class="ms-avatar-hero animated zoomIn animation-delay-7">
+            <% if @project.logo.present? %>
+              <%= image_tag @project.logo.url(:medium), :class => "ms-avatar-hero animated zoomIn animation-delay-7" %>
+            <% else %>
+              <%= image_tag @project.user.avatar.url(:medium), :class => "ms-avatar-hero animated zoomIn animation-delay-7" %>
+            <% end %>
             <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
-              <%= @project.title %>
+              <strong><%= @project.title %></strong>
             </h1>
           </div>
         </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706142258) do
+ActiveRecord::Schema.define(version: 20171012120730) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -373,20 +373,28 @@ ActiveRecord::Schema.define(version: 20170706142258) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string   "title",          limit: 255
-    t.text     "description",    limit: 65535
-    t.string   "projectimage",   limit: 255
-    t.boolean  "active",                       default: false
-    t.integer  "user_id",        limit: 4
-    t.integer  "comments_count", limit: 4,     default: 0
-    t.integer  "posts_count",    limit: 4,     default: 0
-    t.integer  "models_count",   limit: 4,     default: 0
-    t.integer  "products_count", limit: 4,     default: 0
-    t.string   "slug",           limit: 255
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "site",           limit: 255
-    t.string   "keywords",       limit: 255
+    t.string   "title",                   limit: 255
+    t.text     "description",             limit: 65535
+    t.string   "projectimage",            limit: 255
+    t.boolean  "active",                                default: false
+    t.integer  "user_id",                 limit: 4
+    t.integer  "comments_count",          limit: 4,     default: 0
+    t.integer  "posts_count",             limit: 4,     default: 0
+    t.integer  "models_count",            limit: 4,     default: 0
+    t.integer  "products_count",          limit: 4,     default: 0
+    t.string   "slug",                    limit: 255
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.string   "site",                    limit: 255
+    t.string   "keywords",                limit: 255
+    t.string   "logo_file_name",          limit: 255
+    t.string   "logo_content_type",       limit: 255
+    t.integer  "logo_file_size",          limit: 4
+    t.datetime "logo_updated_at"
+    t.string   "background_file_name",    limit: 255
+    t.string   "background_content_type", limit: 255
+    t.integer  "background_file_size",    limit: 4
+    t.datetime "background_updated_at"
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree

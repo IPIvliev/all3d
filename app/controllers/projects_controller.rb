@@ -43,9 +43,11 @@ class ProjectsController < InheritedResources::Base
   end
 
   def edit
+    @project = Project.find(params[:id])
   end
 
   def update
+    @project = Project.find(params[:id])
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Post was successfully updated.' }
@@ -54,6 +56,15 @@ class ProjectsController < InheritedResources::Base
         format.html { render :edit }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @project = Project.find(params[:id])
+    @project.destroy
+    respond_to do |format|
+      format.html { redirect_to user_projects_path(current_user), notice: 'Project was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
@@ -93,7 +104,7 @@ class ProjectsController < InheritedResources::Base
     end
 
     def project_params
-      params.require(:project).permit(:title, :description, :projectimage, :active, :user_id, :comments_count, :posts_count, :models_count, :products_count)
+      params.require(:project).permit(:title, :description, :logo, :background, :projectimage, :active, :user_id, :comments_count, :posts_count, :models_count, :products_count)
     end
 end
 

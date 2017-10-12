@@ -1,6 +1,6 @@
      <div class="container">
         <div class="row">
-          <div class="col-md-9">
+          <div class="col-md-8">
             <div class="row">
               <% if @projects.present? %>
                 <div class="card сard-primary">
@@ -16,6 +16,7 @@
                           <th>Количество новостей</th>
                           <th>Количество фотографий</th>
                           <th>Статус</th>
+                          <th>Изменения</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -33,6 +34,10 @@
                             <td>
                               <%= project_status(project.active) %>
                             </td>
+                            <td>
+                              <%= link_to "Изменить", edit_project_path(project) %>
+                              <%= link_to "Удалить", project_path(project), method: :delete, data: { confirm: 'Are you certain you want to delete this?' } %>
+                            </td>
                           </tr>
                         <% end %>
                     </tbody>
@@ -49,6 +54,7 @@
               </nav>
             </div>
           </div>
+          <%= render "static_pages/right_side" %>
         </div>
       </div>
       <!-- container -->

@@ -1,4 +1,10 @@
 class Project < ActiveRecord::Base
+	has_attached_file :logo, styles: { medium: "320x200" }
+	validates_attachment_content_type :logo, content_type: /\Aimage\/.*\z/
+
+	has_attached_file :background, styles: { large: "800x600" }
+	validates_attachment_content_type :background, content_type: /\Aimage\/.*\z/
+
 	belongs_to :user
 	has_many :posts
 	has_many :models
