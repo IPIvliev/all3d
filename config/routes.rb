@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+
+  # Администрирование
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
+  mount Ckeditor::Engine => '/ckeditor'
+  resources :articles
+
   resources :products
 
   # Проекты
@@ -9,12 +17,6 @@ Rails.application.routes.draw do
   delete ":project/delete/:image" => "projects#delete_projectimage", as: :delete_projectimage
   get ":user/projects" => "projects#user_projects", as: :user_projects
 
-  # Администрирование
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-
-  mount Ckeditor::Engine => '/ckeditor'
-  resources :articles
 
   # Статические страницы
   get "/index.html", :to => "static_pages#index"
