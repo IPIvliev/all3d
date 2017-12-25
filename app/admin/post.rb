@@ -31,8 +31,10 @@ ActiveAdmin.register Post do
       f.input :description
       f.input :keywords
       f.input :text, :as => :ckeditor
-      div do
-      	div post.text_en.html_safe
+      if post.text
+        div do
+        	div post.text_en.html_safe
+        end
       end
       f.input :active
     end
