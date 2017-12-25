@@ -31,7 +31,7 @@ ActiveAdmin.register Post do
       f.input :description
       f.input :keywords
       f.input :text, :as => :ckeditor
-      if !post.text.blank?
+      if !post.text.nil?
         div do
         	div post.text_en.html_safe
         end
