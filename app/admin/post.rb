@@ -28,9 +28,11 @@ ActiveAdmin.register Post do
     f.inputs "Изменить статью" do
       f.input :title_en
       f.input :title_ru
-      f.input :description
-      f.input :keywords
-      f.input :text, :as => :ckeditor
+      f.input :description, :input_html=> { :rows => 2 }
+
+      f.input :keywords, :input_html=> { :rows => 1 }
+      f.input :text, :as => :ckeditor, input_html: { ckeditor: { height: 800 } },
+      label: false
       if post.text_en.present?
         div do
         	div post.text_en.html_safe

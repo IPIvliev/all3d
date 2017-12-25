@@ -17,3 +17,8 @@
 
 @import "active_admin_flat_skin";
 @import "font-awesome.css"; 
+
+html .ckeditor .cke_chrome {
+  width: 100% !important;
+  overflow: hidden;
+}
