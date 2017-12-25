@@ -1,5 +1,5 @@
 ActiveAdmin.register Post do
-	permit_params :title, :title_en, :title_ru, :text, :active, :description, :keywords
+	permit_params :title, :title_en, :title_ru, :text, :active, :description, :keywords, :user_id
 
 	menu label: "Статьи"
 
@@ -8,6 +8,7 @@ ActiveAdmin.register Post do
     id_column
     column "Наименование EN", :title_en
     column "Наименование RU", :title_ru
+
     column "Опубликовано", :active
     column "SEO" do |post|
       if post.description.present? && post.keywords.present?
@@ -26,6 +27,7 @@ ActiveAdmin.register Post do
 
   form do |f|
     f.inputs "Изменить статью" do
+      f.input :user_id, :input_html => { :value => 1 }, as: :hidden
       f.input :title_en
       f.input :title_ru
       f.input :description, :input_html=> { :rows => 2 }
